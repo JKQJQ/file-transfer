@@ -20,16 +20,16 @@ There are 3 types of packets:
 
 #### Begin Packet
 - header: `{B}`, 3 bytes
-- filename: `{file_ab3f33.bin}`, path to file, variable length
-- data
+- file name: `{file_ab3f33.bin}`, path to file, variable length
 
 #### Middle Packet
 - header: `{M}`, 3 bytes
-- filename: `{filename}`, path to file, variable length 
+- file name: `{file_ab3f33.bin}`, path to file, variable length 
 - data
 
 #### End Packet
 - header: `{E}`, 3 bytes
+- file name: `{file_ab3f33.bin}`, path to file, variable length
 
 ### Client-side Packet Format
 There is only one type of packet.
