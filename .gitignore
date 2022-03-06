@@ -1,0 +1,5 @@
+# generated binary for client or server
+**/build/
+
+# vscode config
+.vscode
