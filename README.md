@@ -6,24 +6,7 @@ Each server has records of 500x1000x1000, we split all the data to 500 segments 
 - Server: sending packets to the client using
 
 <!-- The client requests by sending the segment id. 24MB each segment, we may use LRU to limit the memory space used by the server. -->
-Each side should set a directory as their data directory, and our goal is to make sure that both sides eventually have the same structure inside that data directory.
-
-For client
-- `local` directory: the files origianally on the machine
-- `remote` directory: the files trying to download from the server
-The path to specify is the using the remote `local` directory as the root directory.
-
-For example, on one trader we have
-``` 
-|-data
- |
- |-local
-  |-file_ab3f33.bin
-  |-file_bd3323.bin
- |-remote
-    (empty)
-```
-On the other trader, we should send requests containing the filename, e.g., `file_ab3f33.bin`
+Each side should set a directory as their data directory, and our goal is to make sure that both sides eventually have the same structure inside that data directory. The details for this is mentioned in the client-side packet format part.
 
 
 ## Packet Format
@@ -52,8 +35,24 @@ There are 3 types of packets:
 There is only one type of packet.
 
 - header: `{R}`
-- chunk id: 0-500
+- file name: the file name(or file path) it requests, as mentioned above
 
+For client(trader 1)
+- `local` directory: the files origianally on the machine
+- `remote` directory: the files trying to download from the server
+The path to specify is the using the remote `local` directory as the root directory.
+
+For example, on one trader(trader 2) we have
+``` 
+|-data
+ |
+ |-local
+  |-file_ab3f33.bin
+  |-file_bd3323.bin
+ |-remote
+    (empty)
+```
+On the other trader, we should send requests containing the file name, e.g., `file_ab3f33.bin`
 
 ## Extream conditions
 When the client has sent a request and fetching data from the server:
