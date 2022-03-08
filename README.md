@@ -18,24 +18,29 @@ There are 3 types of packets:
 2. Middle packet
 3. End packet
 
+Each part of the packet is separated by `:`, for example
+```
+B:file_ab3f33.bin:payload
+```
 #### Begin Packet
-- header: `{B}`, 3 bytes
-- file name: `{file_ab3f33.bin}`, path to file, variable length
+- header: `B`, 1 bytes
+- file name: `file_ab3f33.bin`, path to file, variable length
+- payload
 
 #### Middle Packet
-- header: `{M}`, 3 bytes
-- file name: `{file_ab3f33.bin}`, path to file, variable length 
+- header: `M`, 1 bytes
+- file name: `file_ab3f33.bin`, path to file, variable length 
 - data
 
 #### End Packet
-- header: `{E}`, 3 bytes
-- file name: `{file_ab3f33.bin}`, path to file, variable length
+- header: `E`, 1 bytes
+- file name: `file_ab3f33.bin`, path to file, variable length
 
 ### Client-side Packet Format
 There is only one type of packet.
 
-- header: `{R}`
-- file name: the file name(or file path) it requests, as mentioned above
+- header: `R`
+- file name: `file_ab3f33.bin`, the file name(or file path) it requests, as mentioned above
 
 For client(trader 1)
 - `local` directory: the files origianally on the machine

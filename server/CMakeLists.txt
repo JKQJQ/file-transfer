@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.16)
-project(file_sender)
+project(file_server)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(file_sender src/main.cpp)
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
+add_executable(file_server src/main.cpp src/file_server.h)
+target_link_libraries(file_server PRIVATE Threads::Threads)

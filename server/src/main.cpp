@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include "file_server.h"
 
 struct Order {
     int order_id;
@@ -27,8 +28,7 @@ void fileReadLocalTestUtil() {
 
 int main() {
     
-    fileReadLocalTestUtil();
-
-
+    FileServer server(5000, "/home/fenghe/contests/jk/client-server/common/data");
+    
     return 0;
 }
