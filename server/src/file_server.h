@@ -23,7 +23,7 @@ namespace file_server {
     static const char SERVER_MID_HEADER = 'M';
     static const char SERVER_END_HEADER = 'E';
     static const int SERVER_HEADER_LEN = 3;
-    
+
     class FileServer {
     private:
         in_port_t serverPort;
@@ -121,7 +121,6 @@ namespace file_server {
                     strcpy(sBuffer + fileNameBeginOffset, fileName.c_str());
                     sBuffer[payloadBeginOffset-1] = PACKET_PART_SEP;
 
-
                     // begin packet
                     inFileStream.seekg(0, inFileStream.beg);
                     sBuffer[0] = SERVER_BEG_HEADER;
@@ -138,7 +137,7 @@ namespace file_server {
 
                         // send
                         int nBytesSent = send(clientSocket, sBuffer, SEND_BUFFER_SIZE, 0);
-                        nBytesSentTotal += nBytesSent;
+                        if(nBytesSent > payloadBeginOffset) nBytesSentTotal += nBytesSent - payloadBeginOffset;
 
                         std::cout << "total bytes sent: " << nBytesSent << std::endl;
                     }
