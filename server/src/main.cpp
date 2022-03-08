@@ -28,7 +28,7 @@ void fileReadLocalTestUtil() {
 
 int main() {
     
-    FileServer server(5000, "/home/fenghe/contests/jk/client-server/common/data");
+    file_server::FileServer server(5000, "/home/fenghe/contests/jk/client-server/common/data");
     
     return 0;
 }
