@@ -11,7 +11,7 @@
 #include <fstream>
 #include <filesystem>
 
-namespace file_server {
+namespace fileserver {
     static const int RECV_BUFFER_SIZE = 64;
     static const int MAX_PENDING = 10;
     static const int SEND_BUFFER_SIZE = 1400;
