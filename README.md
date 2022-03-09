@@ -40,7 +40,9 @@ B:file_ab3f33.bin:payload
 There is only one type of packet.
 
 - header: `R`
+- separator: `:`
 - file name: `file_ab3f33.bin`, the file name(or file path) it requests, as mentioned above
+- end: `:`
 
 For client(trader 1)
 - `local` directory: the files origianally on the machine

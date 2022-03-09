@@ -10,6 +10,7 @@
 #include <thread>
 #include <fstream>
 #include <filesystem>
+#include <unistd.h>
 
 namespace fileserver {
     static const int RECV_BUFFER_SIZE = 64;
@@ -32,7 +33,6 @@ namespace fileserver {
         std::string basePath;       // the path where the file is in
 
         
-
         void initialize() {
             // create socket for incoming connections
             if((serverSock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0) {
@@ -117,7 +117,7 @@ namespace fileserver {
                     sBuffer[1] = PACKET_PART_SEP;
                     int fileNameBeginOffset = 2;
                     int payloadBeginOffset = fileNameBeginOffset + fileName.length() + 1;
-                    int nBytesPayload = SEND_BUFFER_SIZE - payloadBeginOffset;
+                    int nBytesPayload = std::min((long)SEND_BUFFER_SIZE - payloadBeginOffset,nBytesFileSize);
                     strcpy(sBuffer + fileNameBeginOffset, fileName.c_str());
                     sBuffer[payloadBeginOffset-1] = PACKET_PART_SEP;
 
@@ -147,6 +147,7 @@ namespace fileserver {
                     send(clientSocket, sBuffer, SEND_BUFFER_SIZE, 0);
                     
                     std::cout << "Finished sending file\n";
+                    // TODO: close server sock
                     break;
                 }
             }
@@ -168,6 +169,7 @@ namespace fileserver {
                 }
 
                 std::thread t(requestHandler(clientSock, basePath));
+                t.join();
             }
         }
 

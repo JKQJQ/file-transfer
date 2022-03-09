@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include "file_client.h"
 
 struct Order {
     int order_id;
@@ -26,7 +27,9 @@ void fileWriteLocalTestUtil() {
 
 
 int main() {
-    fileWriteLocalTestUtil();
+
+    fileclient::FileClient fileClient(5000, "127.0.0.1", 5001, "/home/fenghe/contests/jk/client-server/common/data/local2/");
+    fileClient.requestFile("data.bin");
 
     return 0;
 }
