@@ -65,6 +65,7 @@ namespace fileclient {
 
         void closeConnection() {
             close(clientSock);
+            std::cout << "client closed connection to server\n";
         }
 
     public:
@@ -89,15 +90,16 @@ namespace fileclient {
             // construct the request instruction to server
             char requestBuffer[REQ_BUFFER_SIZE];
 
+            std::cout << "started downloading " << fileName << " frome server.\n";
+
             // packet format: `R:file_ab3f33.bin:`
             requestBuffer[0] = CLIENT_REQ_HEADER;
             requestBuffer[1] = PACKET_PART_SEP;
             int payloadStartOffset = FILE_NAME_START_OFFSET + fileName.length() + 1;
             strcpy(requestBuffer + FILE_NAME_START_OFFSET, fileName.c_str());
-            std::cout << requestBuffer[payloadStartOffset-1] << std::endl;
             requestBuffer[payloadStartOffset-1] = PACKET_PART_SEP;
-            requestBuffer[payloadStartOffset] = '\n';
-            std::cout << requestBuffer << std::endl;
+            requestBuffer[payloadStartOffset] = 0;  // make a 0-terminated C-style string for debug
+            std::cout << "request buffer: <" << requestBuffer << ">"<< std::endl;
             send(clientSock, requestBuffer, REQ_BUFFER_SIZE, 0);
 
             // try to receive file from server
@@ -135,14 +137,17 @@ namespace fileclient {
                                 payload.clear();
 
                                 // mark as successful
-                                filePath += SUCCESS_FILE_EXTENSION;
-                                std::ofstream outFileSuccess(filePath, std::ios::out | std::ios::binary);
+                                auto successFlagPath = filePath;
+                                successFlagPath += SUCCESS_FILE_EXTENSION;
+                                std::ofstream outFileSuccess(successFlagPath, std::ios::out | std::ios::binary);
                                 outFileSuccess.write("success", 8);
+
+                                std::cout << "successfully downloaded file to " << filePath << std::endl;
+                                return;
                             }
-                            break; 
                         default:
                             std::cout << "unrecognized packet header, skipped.\n";
-                            break;
+                            return;
                     }
                 }
             }

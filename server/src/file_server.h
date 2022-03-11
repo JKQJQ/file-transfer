@@ -11,6 +11,8 @@
 #include <fstream>
 #include <filesystem>
 #include <unistd.h>
+#include <sys/socket.h>
+#include <memory>
 
 namespace fileserver {
     static const int RECV_BUFFER_SIZE = 64;
@@ -105,6 +107,8 @@ namespace fileserver {
                     auto filePath = std::filesystem::path(basePath);
                     filePath += fileName;
 
+                    std::cout << "client requested file: " << filePath << std::endl;
+
                     // TODO: check if the file exists
                     std::ifstream inFileStream(filePath, std::ios::in | std::ios::binary);
                     inFileStream.seekg(0, inFileStream.end);
@@ -147,7 +151,11 @@ namespace fileserver {
                     send(clientSocket, sBuffer, SEND_BUFFER_SIZE, 0);
                     
                     std::cout << "Finished sending file\n";
-                    // TODO: close server sock
+
+                    // shutdown(clientSocket, SHUT_RDWR);  // not necessary
+                    close(clientSocket);
+                    std::cout << "Closed connection with client\n";
+
                     break;
                 }
             }
@@ -159,10 +167,10 @@ namespace fileserver {
             std::cout << "Started listening loop on port: " + std::to_string(serverPort) << std::endl;
 
             for(;;) {
-                sockaddr clientAddress;
-                socklen_t clientAddressLength = sizeof(clientAddress);
+                std::shared_ptr<sockaddr> clientAddress = std::make_shared<sockaddr>();
+                socklen_t clientAddressLength = sizeof(*clientAddress.get());
 
-                int clientSock = accept(serverSock, &clientAddress, &clientAddressLength);
+                int clientSock = accept(serverSock, clientAddress.get(), &clientAddressLength);
 
                 if(clientSock < 0) {
                     throw std::runtime_error("accept failed");
