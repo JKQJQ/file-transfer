@@ -92,11 +92,11 @@ namespace fileclient {
             // packet format: `R:file_ab3f33.bin:`
             requestBuffer[0] = CLIENT_REQ_HEADER;
             requestBuffer[1] = PACKET_PART_SEP;
-            int payloadStartOffset = FILE_NAME_START_OFFSET + fileName.length();
+            int payloadStartOffset = FILE_NAME_START_OFFSET + fileName.length() + 1;
             strcpy(requestBuffer + FILE_NAME_START_OFFSET, fileName.c_str());
             std::cout << requestBuffer[payloadStartOffset-1] << std::endl;
-            requestBuffer[payloadStartOffset] = PACKET_PART_SEP;
-            requestBuffer[payloadStartOffset+1] = '\n';
+            requestBuffer[payloadStartOffset-1] = PACKET_PART_SEP;
+            requestBuffer[payloadStartOffset] = '\n';
             std::cout << requestBuffer << std::endl;
             send(clientSock, requestBuffer, REQ_BUFFER_SIZE, 0);
 
