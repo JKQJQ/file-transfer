@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <chrono>
 #include "file_client.h"
 
 struct Order {
@@ -31,10 +32,19 @@ int main() {
 
     fileclient::FileClient fileClient(40018, "10.216.68.189", 5000, "/data/team-10/remote/");
 
-    std::string prefix = "trade";
-    for(int i = 1; i <= 10; ++i) {
-        fileClient.requestFile(prefix + std::to_string(i));
+    std::string prefix = "stock";
+
+    auto start = std::chrono::steady_clock::now();
+    for(int i = 0; i <= 9; ++i) {
+        for(int j = 1; j <= 50; ++j) {
+            std::string filename = prefix + std::to_string(i) + "_" + std::to_string(j);
+            std::cout << "downloading " << filename << std::endl;
+            fileClient.requestFile(filename);
+        }   
     }
-    
+    auto end = std::chrono::steady_clock::now();
+    std::chrono::duration<double> elapsed_seconds = end-start;
+    std::cout << "elapsed time: " << elapsed_seconds.count() << "s\n";
+
     return 0;
 }
