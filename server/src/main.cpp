@@ -28,7 +28,7 @@ void fileReadLocalTestUtil() {
 
 int main() {
     // DON'T forget the last "/" !
-    fileserver::FileServer server(40018, "/data/team-10/large/order1/");
+    fileserver::FileServer server(40018, "/data/team-10/remote/");
     
     return 0;
 }

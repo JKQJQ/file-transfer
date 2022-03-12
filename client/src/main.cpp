@@ -30,7 +30,7 @@ void fileWriteLocalTestUtil() {
 
 int main() {
 
-    fileclient::FileClient fileClient(40018, "10.216.68.189", 5000, "/data/team-10/remote/");
+    fileclient::FileClient fileClient(40018, "10.216.68.190", 12343, "/data/team-10/remote-test-limit/");
 
     std::string prefix = "stock";
 
