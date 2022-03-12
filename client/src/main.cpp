@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <string>
 #include "file_client.h"
 
 struct Order {
@@ -28,8 +29,12 @@ void fileWriteLocalTestUtil() {
 
 int main() {
 
-    fileclient::FileClient fileClient(5000, "127.0.0.1", 5001, "/home/fenghe/contests/jk/client-server/common/data/local2/");
-    fileClient.requestFile("data.bin");
+    fileclient::FileClient fileClient(40018, "10.216.68.189", 5000, "/data/team-10/remote/");
 
+    std::string prefix = "trade";
+    for(int i = 1; i <= 10; ++i) {
+        fileClient.requestFile(prefix + std::to_string(i));
+    }
+    
     return 0;
 }

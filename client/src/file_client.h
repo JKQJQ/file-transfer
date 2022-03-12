@@ -11,6 +11,8 @@
 #include <filesystem>
 #include <iostream>
 #include <fstream>
+#include <errno.h>
+#include <memory>
 
 namespace fileclient {
     static const int REQ_BUFFER_SIZE = 64;
@@ -32,39 +34,47 @@ namespace fileclient {
         in_port_t clientPort;
         std::string serverIP;
         std::string localPath;
+        sockaddr_in* serverAddress;
+        sockaddr_in* clientAddress;
 
         void initialize() {
             if((clientSock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0) {
                 throw std::runtime_error("Create socket for incoming connections failed\n");
             }
 
-            sockaddr_in serverAddress;  // server address struct
-            memset(&serverAddress, 0, sizeof(serverAddress));
-            serverAddress.sin_family = AF_INET;
+            serverAddress = new sockaddr_in;
+            serverAddress->sin_family = AF_INET;
             // convert address
-            if((inet_pton(AF_INET, serverIP.c_str(), &serverAddress.sin_addr.s_addr)) <= 0) {
-                throw std::runtime_error("inet_pton() failed with invalid IP string");
-            }
-            serverAddress.sin_port = htons(serverPort);
+            serverAddress->sin_addr.s_addr = inet_addr(serverIP.c_str());
+            // serverAddress.sin_addr.s_addr = inet_addr(serverIP.c_str());
+            // if((inet_pton(AF_INET, serverIP.c_str(), &serverAddress.sin_addr.s_addr)) <= 0) {
+            //     throw std::runtime_error("inet_pton() failed with invalid IP string");
+            // }
+            serverAddress->sin_port = htons(serverPort);
             
             // explicit bind for client
-            sockaddr_in clientAddress;
-            clientAddress.sin_addr.s_addr = inet_addr("127.0.0.1");
-            clientAddress.sin_family = AF_INET;
-            clientAddress.sin_port = htons(clientPort);
+            clientAddress = new sockaddr_in;
+            clientAddress->sin_addr.s_addr = inet_addr("127.0.0.1");
+            clientAddress->sin_family = AF_INET;
+            clientAddress->sin_port = htons(clientPort);
 
-            if(bind(clientSock, (sockaddr*) &clientAddress, sizeof(clientAddress)) < 0) {
-                throw std::runtime_error("failed for client to bind to port: " + std::to_string(clientPort));
-            }
+            // TODO: bind to particular port
+            
+            // if(bind(clientSock, (sockaddr*) clientAddress, sizeof(*clientAddress)) < 0) {
+            //     throw std::runtime_error("failed for client to bind to port: " + std::to_string(clientPort));
+            // }
 
             // Establish the connection to the server
-            if(connect(clientSock, (sockaddr*)& serverAddress, sizeof(serverAddress)) != 0) {
-                throw std::runtime_error("failed to connect to server.");
+            if(connect(clientSock, (sockaddr*) serverAddress, sizeof(*serverAddress)) != 0) {
+                throw std::runtime_error("failed to connect to server, errno: " + std::to_string(errno));
             }
         }
 
         void closeConnection() {
+            send(clientSock, "E", 1, 0);
             close(clientSock);
+            delete serverAddress;
+            delete clientAddress;
             std::cout << "client closed connection to server\n";
         }
 
@@ -105,51 +115,57 @@ namespace fileclient {
             // try to receive file from server
             std::string payload;
             {
+                int index = 0;
                 char buffer[RECV_BUFFER_SIZE];
-                for(;;) {
+
+                // try to get file size
+                std::string fileSizeStr;
+                // buffer: 11223:xxcdxxxx
+                while(true) {
                     int nBytesReceived = recv(clientSock, buffer, RECV_BUFFER_SIZE, 0);
-
-                    if(nBytesReceived <= payloadStartOffset || 
-                        buffer[1] != PACKET_PART_SEP || 
-                        buffer[payloadStartOffset-1] != PACKET_PART_SEP) {
-                        std::cout << "Received wrong file chunk or incorrect packet format, skipped\n";
-                        continue;
+                    std::cout << "file size nBytesReceived: " << nBytesReceived << std::endl;
+                    int offset = 0;
+                    for(; offset < nBytesReceived && buffer[offset] != PACKET_PART_SEP; ++offset) {
+                        std::cout << buffer[offset];
+                        fileSizeStr.push_back(buffer[offset]);
                     }
-                    
-                    std::string receivedFileName(buffer + FILE_NAME_START_OFFSET, fileName.length());
-
-                    if(receivedFileName != fileName) {
-                        std::cout << "Incorrect file chunk, skipped.\n";
-                        continue;
-                    }
-
-                    switch(buffer[0]) {
-                        case SERVER_BEG_HEADER: payload.clear();
-                        case SERVER_MID_HEADER: 
-                            std::copy(buffer + payloadStartOffset, buffer + nBytesReceived, std::back_inserter(payload));
-                            break;
-                        case SERVER_END_HEADER: {
-                                // write to buffer
-                                std::filesystem::path filePath = localPath;
-                                filePath += std::filesystem::path(fileName);
-                                std::ofstream outFile(filePath, std::ios::out | std::ios::binary);
-                                outFile.write(reinterpret_cast<const char*>(payload.c_str()), payload.length());
-                                payload.clear();
-
-                                // mark as successful
-                                auto successFlagPath = filePath;
-                                successFlagPath += SUCCESS_FILE_EXTENSION;
-                                std::ofstream outFileSuccess(successFlagPath, std::ios::out | std::ios::binary);
-                                outFileSuccess.write("success", 8);
-
-                                std::cout << "successfully downloaded file to " << filePath << std::endl;
-                                return;
-                            }
-                        default:
-                            std::cout << "unrecognized packet header, skipped.\n";
-                            return;
+                    std::cout << std::endl;
+                    std::cout << "offset: " << offset << std::endl;
+                    if(offset != nBytesReceived) {
+                        std::copy(buffer + offset + 1, buffer + nBytesReceived, std::back_inserter(payload));
+                        break;
                     }
                 }
+
+                long fileSize = std::stol(fileSizeStr);
+
+                for(int index = 0; payload.size() < fileSize; ++index) {
+                    int nBytesReceived = recv(clientSock, buffer, RECV_BUFFER_SIZE, 0);
+
+                    std::copy(buffer, buffer + nBytesReceived, std::back_inserter(payload));
+
+                    std::cout << fileName << ": " << nBytesReceived << " " << payload.size() << ", expecting "<< fileSize << std::endl;
+                }
+
+                 // write to file
+                std::filesystem::path filePath = localPath;
+                filePath += std::filesystem::path(fileName);
+                std::ofstream outFile(filePath, std::ios::out | std::ios::binary);
+                outFile.write(reinterpret_cast<const char*>(payload.c_str()), fileSize);
+                std::cout << "written " << fileSize << " bytes to " << filePath << std::endl; 
+
+                // mark as successful
+                auto successFlagPath = filePath;
+                successFlagPath += SUCCESS_FILE_EXTENSION;
+                std::ofstream outFileSuccess(successFlagPath, std::ios::out | std::ios::binary);
+                outFileSuccess.write("success", 8);
+
+                std::cout << "successfully downloaded file to " << filePath << std::endl;
+
+                // requested to end the connection
+                send(clientSock, "F", 1, 0);
+
+                return;
             }
             
         }

@@ -13,6 +13,7 @@
 #include <unistd.h>
 #include <sys/socket.h>
 #include <memory>
+#include <algorithm>
 
 namespace fileserver {
     static const int RECV_BUFFER_SIZE = 64;
@@ -80,6 +81,14 @@ namespace fileserver {
                         continue;
                     }
 
+                    if(buffer[0] == 'E') {
+                          // shutdown(clientSocket, SHUT_RDWR);  // not necessary
+                        
+                        std::cout << "Client requested to end connection, closed connection with client\n";
+                        close(clientSocket);
+                        return;
+                    }
+
                     // start check the file name
                     if(nBytesReceived < PACKET_SIZE_MIN || 
                         buffer[0] != CLIENT_REQ_HEADER || 
@@ -115,48 +124,50 @@ namespace fileserver {
                     long nBytesFileSize = inFileStream.tellg();
                     
                     // start sending
-                    // data format "HEADER:filename:payload", e.g., "B:file.bin:payload" 
+                    // data format "filesize:payload", e.g., "14999:payload" 
                     // payload integerity does not matter, tcp guarantees it
                     char sBuffer[SEND_BUFFER_SIZE]; // buffer for sending
-                    sBuffer[1] = PACKET_PART_SEP;
-                    int fileNameBeginOffset = 2;
-                    int payloadBeginOffset = fileNameBeginOffset + fileName.length() + 1;
-                    int nBytesPayload = std::min((long)SEND_BUFFER_SIZE - payloadBeginOffset,nBytesFileSize);
-                    strcpy(sBuffer + fileNameBeginOffset, fileName.c_str());
-                    sBuffer[payloadBeginOffset-1] = PACKET_PART_SEP;
-
+                    std::string fileSizeStr = std::to_string(nBytesFileSize);
+                    int payloadBeginOffset = fileSizeStr.length() + 1;
+                    strcpy(sBuffer, fileSizeStr.c_str());
+                    sBuffer[fileSizeStr.length()] = PACKET_PART_SEP;
+                    int nBytesPayload = SEND_BUFFER_SIZE - payloadBeginOffset;
+                    
                     // begin packet
                     inFileStream.seekg(0, inFileStream.beg);
-                    sBuffer[0] = SERVER_BEG_HEADER;
                     long nBytesSentTotal = 0;
                     inFileStream.read(sBuffer + payloadBeginOffset, nBytesPayload);
-                    nBytesSentTotal = send(clientSocket, sBuffer, SEND_BUFFER_SIZE, 0);
-                
+                    nBytesSentTotal = send(clientSocket, sBuffer, SEND_BUFFER_SIZE, 0) - payloadBeginOffset;
+
+                    std::cout << fileName << ": "<< nBytesSentTotal << " sent, totally " << nBytesFileSize << std::endl; ;
+
                     // middle packets
-                    sBuffer[0] = SERVER_MID_HEADER;
+                    nBytesPayload = SEND_BUFFER_SIZE;
                     while(nBytesSentTotal < nBytesFileSize) {
                         // reading the chunk
                         inFileStream.seekg(nBytesSentTotal);
                         inFileStream.read(sBuffer, nBytesPayload);
 
                         // send
-                        int nBytesSent = send(clientSocket, sBuffer, SEND_BUFFER_SIZE, 0);
-                        if(nBytesSent > payloadBeginOffset) nBytesSentTotal += nBytesSent - payloadBeginOffset;
+                        int nBytesSent = send(clientSocket, sBuffer, nBytesPayload, 0);
+                        nBytesSentTotal += nBytesSent;
 
-                        std::cout << "total bytes sent: " << nBytesSent << std::endl;
+                        nBytesPayload = std::min(nBytesFileSize - nBytesSentTotal, (long)SEND_BUFFER_SIZE);
+
+                        std::cout << fileName << ": "<< nBytesSentTotal << " sent, totally " << nBytesFileSize << std::endl; ;
                     }
 
                     // end packet
-                    sBuffer[0] = SERVER_END_HEADER;
-                    send(clientSocket, sBuffer, SEND_BUFFER_SIZE, 0);
+                    // sBuffer[0] = SERVER_END_HEADER;
+                    // send(clientSocket, sBuffer, SEND_BUFFER_SIZE, 0);
                     
-                    std::cout << "Finished sending file\n";
+                    std::cout << "Finished sending file, waiting for client finish...\n";
 
-                    // shutdown(clientSocket, SHUT_RDWR);  // not necessary
-                    close(clientSocket);
-                    std::cout << "Closed connection with client\n";
+                    nBytesReceived = recv(clientSocket, buffer, RECV_BUFFER_SIZE, 0);
 
-                    break;
+                    if(nBytesReceived && buffer[0] == 'F') {
+                        std::cout << "client finished receiving\n";
+                    }
                 }
             }
         };
