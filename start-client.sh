@@ -4,6 +4,8 @@ pkill -f file_client
 rm -rf output/
 mkdir output/
 
+bash ./build-client.sh
+
 nohup client/build/file_client 3 0 40017 10.216.68.191 12345 /data/team-10/forward-test/  > output/client1.out &
 nohup client/build/file_client 3 1 40018 10.216.68.191 12344 /data/team-10/forward-test/  > output/client2.out &
 nohup client/build/file_client 3 2 40019 10.216.68.191 12342 /data/team-10/forward-test/  > output/client3.out &

@@ -5,6 +5,9 @@ pkill -f file_server
 rm -rf output/
 mkdir output/
 
+bash ./build-server.sh
+bash ./build-client.sh
+
 /data/team-10/forward/
 
 # download
