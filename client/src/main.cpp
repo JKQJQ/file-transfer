@@ -28,20 +28,30 @@ void fileWriteLocalTestUtil() {
 }
 
 
-int main() {
+int main(int argc, char **argv) {
+    // command line example
+    // file_client 0 40017 10.216.68.190 12345 /data/team-10/multiprocess-remote-test-limit/ 
 
-    fileclient::FileClient fileClient(40018, "10.216.68.190", 12343, "/data/team-10/remote-test-limit/");
+    int workerIndex = std::stoi(std::string(argv[1]));
+    int serverPort = std::stoi(std::string(argv[2]));
+    std::string serverAddress = std::string(argv[3]);
+    int clientPort = std::stoi(std::string(argv[4]));
+    std::string localPath = std::string(argv[5]);
+
+    fileclient::FileClient fileClient(serverPort, serverAddress, clientPort, localPath);
 
     std::string prefix = "stock";
 
     auto start = std::chrono::steady_clock::now();
-    for(int i = 0; i <= 9; ++i) {
-        for(int j = 1; j <= 50; ++j) {
-            std::string filename = prefix + std::to_string(i) + "_" + std::to_string(j);
-            std::cout << "downloading " << filename << std::endl;
-            fileClient.requestFile(filename);
-        }   
+
+    for(int t = workerIndex; t < 500; t += 3) {
+        int i = t / 50;
+        int j = t % 50 + 1;
+        std::string filename = prefix + std::to_string(i) + "_" + std::to_string(j);
+        std::cout << "downloading " << filename << std::endl;
+        fileClient.requestFile(filename);
     }
+
     auto end = std::chrono::steady_clock::now();
     std::chrono::duration<double> elapsed_seconds = end-start;
     std::cout << "elapsed time: " << elapsed_seconds.count() << "s\n";
