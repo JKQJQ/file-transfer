@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <chrono>
+#include <thread>
 #include "file_client.h"
 
 struct Order {
@@ -50,7 +51,11 @@ int main(int argc, char **argv) {
         int j = t % 50 + 1;
         std::string filename = prefix + std::to_string(i) + "_" + std::to_string(j);
         std::cout << "downloading " << filename << std::endl;
-        fileClient.requestFile(filename);
+        while(!fileClient.requestFile(filename)) {
+            int t = 1;
+            std::this_thread::sleep_for(std::chrono::seconds(t));
+            std::cout << "sleeped " << t << " seconds, retrying " << filename << std::endl;
+        }
     }
 
     auto end = std::chrono::steady_clock::now();

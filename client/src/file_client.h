@@ -96,9 +96,20 @@ namespace fileclient {
             closeConnection();
         }
 
-        void requestFile(std::string fileName) {
+        bool requestFile(std::string fileName) {
             // construct the request instruction to server
             char requestBuffer[REQ_BUFFER_SIZE];
+
+            // TODO: if the file is already downloaded, skip it
+            {
+                std::filesystem::path successFilePath = localPath;
+                successFilePath += fileName + SUCCESS_FILE_EXTENSION;
+                std::cout << "Expected success flag: " << successFilePath << std::endl;
+                if(std::filesystem::exists(successFilePath)) {
+                    std::cout << "The file flag" << successFilePath << " already exists, skipped\n";
+                    return true;
+                }
+            }
 
             std::cout << "started downloading " << fileName << " frome server.\n";
 
@@ -123,6 +134,10 @@ namespace fileclient {
                 // buffer: 11223:xxcdxxxx
                 while(true) {
                     int nBytesReceived = recv(clientSock, buffer, RECV_BUFFER_SIZE, 0);
+                    if(nBytesReceived > 0 && buffer[0] == '-') {
+                        std::cout << "The file is not ready, download failed...\n";
+                        return false;
+                    }
                     std::cout << "file size nBytesReceived: " << nBytesReceived << std::endl;
                     int offset = 0;
                     for(; offset < nBytesReceived && buffer[offset] != PACKET_PART_SEP; ++offset) {
@@ -165,7 +180,7 @@ namespace fileclient {
                 // requested to end the connection
                 send(clientSock, "F", 1, 0);
 
-                return;
+                return true;
             }
             
         }

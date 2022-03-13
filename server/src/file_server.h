@@ -28,6 +28,9 @@ namespace fileserver {
     static const char SERVER_END_HEADER = 'E';
     static const int SERVER_HEADER_LEN = 3;
 
+    static const std::string SUCCESS_FILE_EXTENSION = ".success"; //  success file for marking success 
+
+
     class FileServer {
     private:
         in_port_t serverPort;
@@ -114,11 +117,23 @@ namespace fileserver {
 
                     // start sending file back to client
                     auto filePath = std::filesystem::path(basePath);
+                    auto successFilePath = std::filesystem::path(basePath);
                     filePath += fileName;
+                    successFilePath += fileName + SUCCESS_FILE_EXTENSION;
 
                     std::cout << "client requested file: " << filePath << std::endl;
 
-                    // TODO: check if the file exists
+                    // check the success file flag to see if the file is ready
+                    if(!std::filesystem::exists(successFilePath)) {
+                        send(clientSocket, "-", 1, 0);
+
+                        std::cout << "The success file not found, blocked: " << successFilePath << std::endl;
+                        
+                        // wait for next request
+                        continue;
+                    }
+
+
                     std::ifstream inFileStream(filePath, std::ios::in | std::ios::binary);
                     inFileStream.seekg(0, inFileStream.end);
                     long nBytesFileSize = inFileStream.tellg();
