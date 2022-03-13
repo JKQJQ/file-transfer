@@ -30,13 +30,14 @@ void fileWriteLocalTestUtil() {
 
 int main(int argc, char **argv) {
     // command line example
-    // file_client 0 40017 10.216.68.190 12345 /data/team-10/multiprocess-remote-test-limit/ 
+    // file_client 6 0 40017 10.216.68.190 12345 /data/team-10/multiprocess-remote-test-limit/ 
 
-    int workerIndex = std::stoi(std::string(argv[1]));
-    int serverPort = std::stoi(std::string(argv[2]));
-    std::string serverAddress = std::string(argv[3]);
-    int clientPort = std::stoi(std::string(argv[4]));
-    std::string localPath = std::string(argv[5]);
+    int nWorkers = std::stoi(std::string(argv[1]));
+    int workerIndex = std::stoi(std::string(argv[2]));
+    int serverPort = std::stoi(std::string(argv[3]));
+    std::string serverAddress = std::string(argv[4]);
+    int clientPort = std::stoi(std::string(argv[5]));
+    std::string localPath = std::string(argv[6]);
 
     fileclient::FileClient fileClient(serverPort, serverAddress, clientPort, localPath);
 
@@ -44,7 +45,7 @@ int main(int argc, char **argv) {
 
     auto start = std::chrono::steady_clock::now();
 
-    for(int t = workerIndex; t < 500; t += 3) {
+    for(int t = workerIndex; t < 500; t += nWorkers) {
         int i = t / 50;
         int j = t % 50 + 1;
         std::string filename = prefix + std::to_string(i) + "_" + std::to_string(j);
