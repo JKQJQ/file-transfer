@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <string>
 #include "file_server.h"
 
 struct Order {
@@ -26,9 +27,20 @@ void fileReadLocalTestUtil() {
 }
 
 
-int main() {
+int main(int argc, char** argv) {
     // DON'T forget the last "/" !
-    fileserver::FileServer server(40018, "/data/team-10/remote/");
+    // Please use absolute path
+    // command line:
+    // file_server 40018 /data/team-10/remote/
+    if(argc != 3) {
+        std::cout << "command line format: \n"
+                  << "file_server port file_directory\n";
+        return 0;
+    }
+    std::string portStr = std::string(argv[1]);
+    std::string localPath = std::string(argv[2]);
+
+    fileserver::FileServer server(std::stoi(portStr), localPath);
     
     return 0;
 }
