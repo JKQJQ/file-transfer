@@ -39,6 +39,11 @@ int main(int argc, char **argv) {
     std::string serverAddress = std::string(argv[4]);
     int clientPort = std::stoi(std::string(argv[5]));
     std::string localPath = std::string(argv[6]);
+    std::string suffix = "";
+    if(argc == 8) {
+        suffix = std::string(argv[7]);
+    }
+    std::cout << "file suffix: " << suffix << std::endl;
 
     fileclient::FileClient fileClient(serverPort, serverAddress, clientPort, localPath);
 
@@ -49,7 +54,7 @@ int main(int argc, char **argv) {
     for(int t = workerIndex; t < 500; t += nWorkers) {
         int i = t / 50;
         int j = t % 50 + 1;
-        std::string filename = prefix + std::to_string(i) + "_" + std::to_string(j);
+        std::string filename = prefix + std::to_string(i) + "_" + std::to_string(j) + suffix;
         std::cout << "downloading " << filename << std::endl;
         while(!fileClient.requestFile(filename)) {
             int t = 1;

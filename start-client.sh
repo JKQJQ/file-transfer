@@ -6,9 +6,15 @@ mkdir output/
 
 bash ./build-client.sh
 
-nohup client/build/file_client 3 0 40017 10.216.68.191 12345 /data/team-10/forward-test/  > output/client1.out &
-nohup client/build/file_client 3 1 40018 10.216.68.191 12344 /data/team-10/forward-test/  > output/client2.out &
-nohup client/build/file_client 3 2 40019 10.216.68.191 12342 /data/team-10/forward-test/  > output/client3.out &
+N_WORKER=3
+SERVER_IP=10.216.68.189
+DOWN_DIR=/data/team-10/zipped_files/
+EXE=client/build/file_client
+SUFFIX=.zst
+
+nohup ${EXE} ${N_WORKER} 0 40017 ${SERVER_IP} 12345 ${DOWN_DIR} ${SUFFIX} > output/client1.out &
+nohup ${EXE} ${N_WORKER} 1 40018 ${SERVER_IP} 12344 ${DOWN_DIR} ${SUFFIX} > output/client2.out &
+nohup ${EXE} ${N_WORKER} 2 40019 ${SERVER_IP} 12342 ${DOWN_DIR} ${SUFFIX} > output/client3.out &
 # nohup client/build/file_client 5 3 40020 10.216.68.190 12342 /data/team-10/multiprocess-remote-test-limit/  > output/client4.out &
 # nohup client/build/file_client 5 4 40021 10.216.68.190 12341 /data/team-10/multiprocess-remote-test-limit/  > output/client5.out &
 
