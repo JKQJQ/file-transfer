@@ -1,5 +1,7 @@
 #!/bin/bash
 
+pkill -f file_server.sh
+
 rm -rf output/
 mkdir output/
 

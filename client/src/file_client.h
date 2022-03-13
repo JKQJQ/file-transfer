@@ -57,11 +57,11 @@ namespace fileclient {
             clientAddress->sin_addr.s_addr = INADDR_ANY;
             clientAddress->sin_family = AF_INET;
             clientAddress->sin_port = htons(clientPort);
-
-            // TODO: bind to particular port
             
-            if(bind(clientSock, (sockaddr*) clientAddress, sizeof(*clientAddress)) < 0) {
-                throw std::runtime_error("failed for client to bind to port: " + std::to_string(clientPort));
+            while(bind(clientSock, (sockaddr*) clientAddress, sizeof(*clientAddress)) < 0) {
+                int t = 1;
+                std::cout << "Client failed to bind to port " + std::to_string(serverPort) << ", sleeping for " << t << " seconds." << std::endl;
+                sleep(t);
             }
 
             // Establish the connection to the server

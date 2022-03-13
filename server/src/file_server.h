@@ -52,8 +52,10 @@ namespace fileserver {
             serverAddress.sin_port = htons(serverPort);         // local port
 
             // bind to local address
-            if(bind(serverSock, (sockaddr*) &serverAddress, sizeof(serverAddress)) < 0) {
-                throw std::runtime_error("Failed to bind to port " + std::to_string(serverPort));
+            while(bind(serverSock, (sockaddr*) &serverAddress, sizeof(serverAddress)) < 0) {
+                int t = 1;
+                std::cout << "Server failed to bind to port " + std::to_string(serverPort) << ", sleeping for " << t << " seconds." << std::endl;
+                sleep(t);
             }
 
             // make the socket listening incoming connections
