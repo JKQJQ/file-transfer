@@ -7,7 +7,7 @@ mkdir output/
 bash ./build-client.sh
 
 N_WORKER=3
-SERVER_IP=10.216.68.189
+SERVER_IP=10.216.68.191
 DOWN_DIR=/data/team-10/zipped_files/
 EXE=client/build/file_client
 SUFFIX=.zst

@@ -7,8 +7,8 @@ mkdir output/
 
 bash ./build-server.sh
 
-# don't forget the '/' in the end!, no space around =
-DATA_DIR=/data/team-10/large/order1_compress/
+# DON"T forget the '/' in the end!, no space around =
+DATA_DIR=/data/team-10/zipped_files/
 
 # executable file
 EXE=server/build/file_server
