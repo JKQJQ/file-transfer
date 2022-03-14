@@ -1,20 +1,20 @@
 #!/bin/bash
 
 pkill -f file_client
-rm -rf output/
-mkdir output/
+
+rm -rf output/client*
+mkdir -p output/
 
 bash ./build-client.sh
 
 N_WORKER=3
-SERVER_IP=10.216.68.191
-DOWN_DIR=/data/team-10/zipped_files/
+SERVER_IP=10.216.68.192
+DOWN_DIR=/data/team-10/test/order2/
 EXE=client/build/file_client
 SUFFIX=.zst
 
-nohup ${EXE} ${N_WORKER} 0 40017 ${SERVER_IP} 12345 ${DOWN_DIR} ${SUFFIX} > output/client1.out &
-nohup ${EXE} ${N_WORKER} 1 40018 ${SERVER_IP} 12344 ${DOWN_DIR} ${SUFFIX} > output/client2.out &
-nohup ${EXE} ${N_WORKER} 2 40019 ${SERVER_IP} 12342 ${DOWN_DIR} ${SUFFIX} > output/client3.out &
-# nohup client/build/file_client 5 3 40020 10.216.68.190 12342 /data/team-10/multiprocess-remote-test-limit/  > output/client4.out &
-# nohup client/build/file_client 5 4 40021 10.216.68.190 12341 /data/team-10/multiprocess-remote-test-limit/  > output/client5.out &
+mkdir -p ${DOWN_DIR}
 
+nohup ${EXE} ${N_WORKER} 0 12350 ${SERVER_IP} 12353 ${DOWN_DIR} ${SUFFIX} > output/client1.out &
+nohup ${EXE} ${N_WORKER} 1 12351 ${SERVER_IP} 12354 ${DOWN_DIR} ${SUFFIX} > output/client2.out &
+nohup ${EXE} ${N_WORKER} 2 12352 ${SERVER_IP} 12355 ${DOWN_DIR} ${SUFFIX} > output/client3.out &
