@@ -13,6 +13,9 @@
 #include <fstream>
 #include <errno.h>
 #include <memory>
+#include <thread>
+#include <chrono>
+
 
 namespace fileclient {
     static const int REQ_BUFFER_SIZE = 64;
@@ -61,7 +64,7 @@ namespace fileclient {
             while(bind(clientSock, (sockaddr*) clientAddress, sizeof(*clientAddress)) < 0) {
                 int t = 1;
                 std::cout << "Client failed to bind to port " + std::to_string(serverPort) << ", sleeping for " << t << " seconds." << std::endl;
-                sleep(t);
+                std::this_thread::sleep_for(std::chrono::seconds(t));
             }
 
             // Establish the connection to the server
@@ -134,11 +137,18 @@ namespace fileclient {
                 // buffer: 11223:xxcdxxxx
                 while(true) {
                     int nBytesReceived = recv(clientSock, buffer, RECV_BUFFER_SIZE, 0);
-                    if(nBytesReceived > 0 && buffer[0] == '-') {
+                    std::cout << "file size nBytesReceived: " << nBytesReceived << std::endl;
+
+                    if(nBytesReceived <= 0) {
+                        int t = 1;
+                        std::cout << "Trying to get file from server, but nothing received, returning and will request again...\n";
+                        std::this_thread::sleep_for(std::chrono::seconds(t));
+                        return false;
+                    } else if(buffer[0] == '-') {
                         std::cout << "The file is not ready, download failed...\n";
                         return false;
                     }
-                    std::cout << "file size nBytesReceived: " << nBytesReceived << std::endl;
+
                     int offset = 0;
                     for(; offset < nBytesReceived && buffer[offset] != PACKET_PART_SEP; ++offset) {
                         std::cout << buffer[offset];
