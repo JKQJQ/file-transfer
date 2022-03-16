@@ -39,6 +39,12 @@ int main(int argc, char** argv) {
     }
     std::string portStr = std::string(argv[1]);
     std::string localPath = std::string(argv[2]);
+    
+    if(localPath.empty()) {
+        std::cout << "localPath is empty\n";
+        return 0;
+    }
+    if(localPath.back() != '/') localPath.push_back('/');
 
     fileserver::FileServer server(std::stoi(portStr), localPath);
     

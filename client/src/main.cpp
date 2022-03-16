@@ -45,6 +45,12 @@ int main(int argc, char **argv) {
     }
     std::cout << "file suffix: " << suffix << std::endl;
 
+    if(localPath.empty()) {
+        std::cout << "localPath is empty\n";
+        return 0;
+    }
+    if(localPath.back() != '/') localPath.push_back('/');
+    
     fileclient::FileClient fileClient(serverPort, serverAddress, clientPort, localPath);
 
     std::string prefix = "stock";
