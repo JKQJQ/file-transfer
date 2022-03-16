@@ -52,7 +52,7 @@ int main(int argc, char **argv) {
     auto start = std::chrono::steady_clock::now();
 
     for(int t = workerIndex; t < 500; t += nWorkers) {
-        int i = t / 50;
+        int i = t / 50 + 1;
         int j = t % 50 + 1;
         std::string filename = prefix + std::to_string(i) + "_" + std::to_string(j) + suffix;
         std::cout << "downloading " << filename << std::endl;
