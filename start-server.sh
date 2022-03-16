@@ -1,14 +1,17 @@
 #!/bin/bash
 
+######## VARIABLES ######################
+
+DATA_DIR=/data/team-10/test/order1/
+
+####### END ############################
+
 pkill -f file_server
 
 rm -rf output/server*
 mkdir -p output/
 
 bash ./build-server.sh
-
-# DON"T forget the '/' in the end!, no space around =
-DATA_DIR=/data/team-10/test/order1/
 
 # executable file
 EXE=server/build/file_server

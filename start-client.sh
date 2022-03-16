@@ -1,5 +1,13 @@
 #!/bin/bash
 
+
+######## VARIABLES ######################
+
+SERVER_IP=10.216.68.192
+DOWN_DIR=/data/team-10/test/order2/
+
+####### END ############################
+
 pkill -f file_client
 
 rm -rf output/client*
@@ -8,8 +16,6 @@ mkdir -p output/
 bash ./build-client.sh
 
 N_WORKER=3
-SERVER_IP=10.216.68.192
-DOWN_DIR=/data/team-10/test/order2/
 EXE=client/build/file_client
 SUFFIX=.zst
 

@@ -1,10 +1,17 @@
 #!/bin/bash
 
+######## VARIABLES ######################
+
+SERVER_IP=10.216.68.189
+FORWARD_DIR=/data/team-10/forward/
+
+####### END ############################
+
 pkill -f file_client
 pkill -f file_server
 
 rm -rf output/
-mkdir output/
+mkdir -p output/
 
 bash ./build-server.sh
 bash ./build-client.sh
@@ -12,8 +19,6 @@ bash ./build-client.sh
 CLIENT_EXE=client/build/file_client
 SERVER_EXE=server/build/file_server
 N_WORKER=3
-SERVER_IP=10.216.68.189
-FORWARD_DIR=/data/team-10/forward/
 SUFFIX=.zst
 
 mkdir -p ${FORWARD_DIR}
