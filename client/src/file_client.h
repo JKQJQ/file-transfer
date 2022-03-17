@@ -53,7 +53,7 @@ namespace fileclient {
             
             while(bind(clientSocket, (sockaddr*) clientAddress, sizeof(*clientAddress)) < 0) {
                 int t = 1;
-                std::cout << "Client failed to bind to port " + std::to_string(serverPort) << ", sleeping for " << t << " seconds." << std::endl;
+                std::cout << "Client failed to bind to port " + std::to_string(clientPort) << ", sleeping for " << t << " seconds." << std::endl;
                 std::this_thread::sleep_for(std::chrono::seconds(t));
             }
 

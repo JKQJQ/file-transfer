@@ -85,12 +85,14 @@ namespace requesthandler {
         inline std::filesystem::path getDownloadPath(const std::string& fileName) {
             auto ret = std::filesystem::path(downloadPath);
             ret += std::filesystem::path(fileName);
+            std::cout << ret << std::endl;
             return ret;
         }
 
         inline std::filesystem::path getUploadPath(const std::string& fileName) {
             auto ret = std::filesystem::path(uploadPath);
             ret += std::filesystem::path(fileName);
+            std::cout << ret << std::endl;
             return ret;
         }
 
@@ -98,6 +100,7 @@ namespace requesthandler {
             inUploadFileStream = std::ifstream(getUploadPath(fileNameUploadInProgress), std::ios::binary | std::ios::in);
             inUploadFileStream.seekg(0, inUploadFileStream.end);
             nBytesToUpload = inUploadFileStream.tellg();
+            std::cout << "update nBytesToUpload: " << nBytesToUpload << std::endl;
             inUploadFileStream.seekg(0, inUploadFileStream.beg);
         }
 
@@ -178,11 +181,12 @@ namespace requesthandler {
                     std::cout << "expected file: " << fileNameUploadInProgress  << std::endl;
 
                     // open the file and count how many byte are there.
+                    std::cout << "The success file exists: " << getUploadPath(fileNameUploadInProgress + SUCCESS_FILE_EXTENSION);
+                       
                     if(std::filesystem::exists(getUploadPath(fileNameUploadInProgress + SUCCESS_FILE_EXTENSION))) {
                         // std::cout << "isPendingUpload is set to false\n";
                         // isPendingUpload = false;
-                        std::cout << "The file exists\n";
-                        updateUploadInfileStream();
+                         updateUploadInfileStream();
                     }
 
                     packetHeader = buffer[++offset];

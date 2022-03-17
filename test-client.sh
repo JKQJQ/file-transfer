@@ -1,1 +1,5 @@
-client/build/file_client 1 0 12350 10.216.68.189 12353 zipped_files zipped_files2 0 500 stock .zst
+#!/bin/bash
+
+bash build-client.sh
+
+client/build/file_client 1 0 12000 10.216.68.189 12353 /data/team-10/zipped_files /data/team-10/zipped_files2 0 500 stock .zst
