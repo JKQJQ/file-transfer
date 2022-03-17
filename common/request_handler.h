@@ -105,7 +105,6 @@ namespace requesthandler {
         }
 
         void operator()() {
-            int nBytesReceived;
             char buffer[PACKET_SIZE];
             for(;;) {
                 // construct and send the request or send data
@@ -173,6 +172,7 @@ namespace requesthandler {
                 std::cout << "packet header: " << packetHeader << std::endl;
                 if(packetHeader == REQUEST_PACKET_HEADER) {
                     fileNameUploadInProgress.clear();
+                    nBytesUploaded = 0;
                     offset++;
                     while(offset < PACKET_SIZE && buffer[offset] != PACKET_SEPARATOR) {
                         fileNameUploadInProgress.push_back(buffer[offset++]);
@@ -223,9 +223,11 @@ namespace requesthandler {
                     std::string downloadFile = taskQueue.front();
                     taskQueue.pop();
 
-                    std::ofstream outFile(getDownloadPath(downloadFile), std::ios::out | std::ios::binary);
+                    auto p = getDownloadPath(downloadFile);
+                    std::ofstream outFile(p, std::ios::out | std::ios::binary);
                     outFile.write(reinterpret_cast<const char*>(downloadBuffer.c_str()), nBytesToDownload);
 
+                    std::cout << "File is downloaded and save to " << p << std::endl;
                     downloadBuffer.clear();
                     nBytesToDownload = -1;
                 }
