@@ -233,7 +233,14 @@ namespace requesthandler {
                     std::ofstream outFile(p, std::ios::out | std::ios::binary);
                     outFile.write(reinterpret_cast<const char*>(downloadBuffer.c_str()), nBytesToDownload);
 
+                    // mark as successfully downloaded in the directory
+                    auto pSuccess = getDownloadPath(downloadFile + SUCCESS_FILE_EXTENSION);
+                    std::ofstream successOutFile(pSuccess, std::ios::out | std::ios::binary);
+                    successOutFile.write(SUCCESS_FILE_EXTENSION.c_str(), SUCCESS_FILE_EXTENSION.length());
+
                     std::cout << "[receive] File is downloaded and save to " << p << std::endl;
+
+                    // reset download attributes
                     downloadBuffer.clear();
                     nBytesToDownload = -1;
                     taskQueue.pop();
