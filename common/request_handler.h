@@ -221,10 +221,9 @@ namespace requesthandler {
                         std::cout << "[receive] strSize: " << strSize << std::endl;
                         nBytesToDownload = std::stol(strSize);
                         std::cout << "[receive][switch] new nBytesToDownload: " << nBytesToDownload << std::endl;
-                        offset++; // skip a separator
                     }
                     case DATA_MID_PACKET_HEADER: 
-                        std::copy(buffer + offset, buffer + PACKET_SIZE, std::back_inserter(downloadBuffer));
+                        std::copy(buffer + offset + 1, buffer + PACKET_SIZE, std::back_inserter(downloadBuffer));
                         break;
                     case NIL_PACKET_HEADER: 
                         break;
