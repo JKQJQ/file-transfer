@@ -78,7 +78,7 @@ namespace fileserver {
 
                 std::queue<std::string> taskQueue;
 
-                for(int t = downloadFileIdRange.first; t < downloadFileIdRange.second; t += nWorkers) {
+                for(int t = downloadFileIdRange.first + workerId; t < downloadFileIdRange.second; t += nWorkers) {
                     int i = t / 50 + 1;
                     int j = t % 50 + 1;
                     std::string fileName = prefix + std::to_string(i) + "_" + std::to_string(j) + suffix;

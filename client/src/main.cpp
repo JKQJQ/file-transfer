@@ -60,7 +60,7 @@ int main(int argc, char **argv) {
 
     std::queue<std::string> taskQueue;
 
-    for(int t = idRangeLower; t < idRangeUpper; t += nWorkers) {
+    for(int t = idRangeLower + workerIndex; t < idRangeUpper; t += nWorkers) {
         int i = t / 50 + 1;
         int j = t % 50 + 1;
         std::string fileName = prefix + std::to_string(i) + "_" + std::to_string(j) + suffix;
