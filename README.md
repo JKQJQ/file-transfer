@@ -35,3 +35,5 @@ To make sure all the packets are of length N: resend the ones not sent in a N-by
 
 
 The path should include file path.
+
+After one side ends sending all the files, the other side should still keep in the file until both sending `E` flag to each other.
