@@ -38,36 +38,36 @@ int main(int argc, char **argv) {
     int serverPort = std::stoi(std::string(argv[3]));
     std::string serverAddress = std::string(argv[4]);
     int clientPort = std::stoi(std::string(argv[5]));
-    std::string localPath = std::string(argv[6]);
+    std::string uploadPath = std::string(argv[6]);
+    std::string downloadPath = std::string(argv[7]);
+    int idRangeLower = std::stoi(std::string(argv[8]));
+    int idRangeUpper = std::stoi(std::string(argv[9]));
+    std::string prefix = std::string(argv[10]);
     std::string suffix = "";
-    if(argc == 8) {
-        suffix = std::string(argv[7]);
+    if(argc == 12) {
+        suffix = std::string(argv[11]);
     }
     std::cout << "file suffix: " << suffix << std::endl;
 
-    if(localPath.empty()) {
+    if(uploadPath.empty() || downloadPath.empty()) {
         std::cout << "localPath is empty\n";
         return 0;
     }
-    if(localPath.back() != '/') localPath.push_back('/');
+    if(uploadPath.back() != '/') uploadPath.push_back('/');
+    if(downloadPath.back() != '/') downloadPath.push_back('/');
     
-    fileclient::FileClient fileClient(serverPort, serverAddress, clientPort, localPath);
-
-    std::string prefix = "stock";
-
     auto start = std::chrono::steady_clock::now();
 
-    for(int t = workerIndex; t < 500; t += nWorkers) {
+    std::queue<std::string> taskQueue;
+
+    for(int t = idRangeLower; t < idRangeUpper; t += nWorkers) {
         int i = t / 50 + 1;
         int j = t % 50 + 1;
-        std::string filename = prefix + std::to_string(i) + "_" + std::to_string(j) + suffix;
-        std::cout << "downloading " << filename << std::endl;
-        while(!fileClient.requestFile(filename)) {
-            int t = 1;
-            std::this_thread::sleep_for(std::chrono::seconds(t));
-            std::cout << "sleeped " << t << " seconds, retrying " << filename << std::endl;
-        }
+        std::string fileName = prefix + std::to_string(i) + "_" + std::to_string(j) + suffix;
+        taskQueue.push(fileName);
     }
+    
+    fileclient::FileClient fileClient(serverPort, serverAddress, clientPort, uploadPath, downloadPath, taskQueue);
 
     auto end = std::chrono::steady_clock::now();
     std::chrono::duration<double> elapsed_seconds = end-start;

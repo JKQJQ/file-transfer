@@ -1,67 +1,37 @@
-# File Sender and Receiver
-Each server has records of 500x1000x1000, we split all the data to 500 segments along its first dimension. Each segment consists of 1e6 of records. Each part is too big to send in one packet, so we have to segment all the it further and sending in a sequence.
-
-## System Architecture
-- Client: sending packets containing a file path
-- Server: sending packets to the client using
-
-<!-- The client requests by sending the segment id. 24MB each segment, we may use LRU to limit the memory space used by the server. -->
-Each side should set a directory as their data directory, and our goal is to make sure that both sides eventually have the same structure inside that data directory. The details for this is mentioned in the client-side packet format part.
-
-
-## Packet Format
-The ordering of packets is guaranteed by TCP protocol. What we need to do is to mark the start and end of file so that the bytestream can be recovered on client side.
-
-### Server-side Packet Format
-There are 3 types of packets:
-1. Begin packet
-2. Middle packet
-3. End packet
-
-Each part of the packet is separated by `:`, for example
+# File Sender and Receiver Duplex
+Each trader has records of 500x1000x1000, we split all the data to 500 segments along its first dimension. We use exchange 1 and 2 as duplex forwarders, i.e.
 ```
-B:file_ab3f33.bin:payload
+                   orders1 =>         orders1 =>
+[0. 250):   trader 1 <><><> exchange 1 <><><> trader 2
+                    <= orders2       <= orders2
+                    orders1 =>         orders1 =>
+[250, 500): trader 1 <><><> exchange 2 <><><> trader 2
+                    <= orders2       <= orders2
 ```
-#### Begin Packet
-- header: `B`, 1 bytes
-- file name: `file_ab3f33.bin`, path to file, variable length
-- payload
 
-#### Middle Packet
-- header: `M`, 1 bytes
-- file name: `file_ab3f33.bin`, path to file, variable length 
-- data
+<>: a duplex 1.5MB/s link, multiple ones indicate duplex links in parallel
 
-#### End Packet
-- header: `E`, 1 bytes
-- file name: `file_ab3f33.bin`, path to file, variable length
+Packets are of equal length N(for example 1400).
 
-### Client-side Packet Format
-There is only one type of packet.
+Traders are servers, while exchanges are clients. Traders and exchanges are both senders and receivers.
 
-- header: `R`
-- separator: `:`
-- file name: `file_ab3f33.bin`, the file name(or file path) it requests, as mentioned above
-- end: `:`
+A receiver scans the data directory and pushes all the not found files with remainder related to their worker id and pushes these filenames to their request(task) queues.
 
-For client(trader 1)
-- `local` directory: the files origianally on the machine
-- `remote` directory: the files trying to download from the server
-The path to specify is the using the remote `local` directory as the root directory.
+After creating the connection, client and server are equal. They start a loop and inside the loop, `send()` first send `recv()`. Request packets have higer priority over data packets, but all of length N, padding end with random data if data length less than N.
 
-For example, on one trader(trader 2) we have
-``` 
-|-data
- |
- |-local
-  |-file_ab3f33.bin
-  |-file_bd3323.bin
- |-remote
-    (empty)
-```
-On the other trader, we should send requests containing the file name, e.g., `file_ab3f33.bin`
+- request packets: `R:requested_file_name:other packet`, other packets could either be data packets or nil packets. if `R::other packet`, this means no file is being requested. If no data, the other packet should be a nil packet(`N:`)
+- data packets: `B:file_size:payload`(begin) or `M:payload`(middle)
+- nil packets: `N:`
+- end packets: `E:`, it should be the 
 
-## Extream conditions
-When the client has sent a request and fetching data from the server:
-1. If the server is down: the client should clear the previous cache and reading from start.
-2. If the client is down: the server should catch the exception and stop sending, stop the current process, waiting for client to request again.
+
+It is the receivers' obligation to record the file_size and how many bytes left to read. All the paddings in the end of the last packet of a binary file should be abandoned.
+
+The receiver is also a requester that sends the request packet. The request queue head is the file being processed. The request is no longer in the queue IFF the .success file exists for the file being requested on the receiver.
+
+It is the senders' obligation to make sure that each packet is of equal length, i.e., N. If the data left is not enough for the current one being processed, paddings should apply.
+
+To make sure all the packets are of length N: resend the ones not sent in a N-bytes packet if the nBytesSent return value of `send()` is not N.
+
+
+The path should include file path.
