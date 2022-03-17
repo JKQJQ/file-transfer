@@ -66,24 +66,19 @@ namespace requesthandler {
 
         void sendAllData(char* buffer) {
             int nBytesSentTotal = 0;
+
             while(nBytesSentTotal < PACKET_SIZE) {
                 int nBytesSent = send(clientSocket, buffer + nBytesSentTotal, PACKET_SIZE - nBytesSentTotal, 0);
-
                 nBytesSentTotal += nBytesSent;
-
-                // std::cout << "Packet send size expected: " << PACKET_SIZE << ", " << nBytesSentTotal << " sent.\n";
             }
         }
 
         void receiveAllData(char* buffer) {
-            // start receive
             int nBytesReceivedTotal = 0;
 
             while(nBytesReceivedTotal < PACKET_SIZE) {
                 int nBytesReceived = recv(clientSocket, buffer+nBytesReceivedTotal, PACKET_SIZE - nBytesReceivedTotal, 0);
-
                 nBytesReceivedTotal += nBytesReceived;
-                // std::cout << "Packet receive size expected: " << PACKET_SIZE << ", " << nBytesReceivedTotal << " received.\n";
             }
         }
 
@@ -135,10 +130,7 @@ namespace requesthandler {
                         break;
                     }
                     buffer[offset++] = PACKET_SEPARATOR;
-                    buffer[offset] = 0;
-                    std::cout << "buffer 1: " << buffer << std::endl;
                 }
-                
 
                 // send data or nop or end
                 if(!fileNameUploadInProgress.empty()) {
@@ -154,8 +146,6 @@ namespace requesthandler {
                         buffer[offset++] = DATA_MID_PACKET_HEADER;
                     }
                     buffer[offset++] = PACKET_SEPARATOR;
-                    buffer[offset] = 0;
-                    std::cout << "[send] temp buffer: " << buffer << std::endl;
 
                     long packetRemainingSize = PACKET_SIZE - offset;
                     int nBytesToRead = std::min(packetRemainingSize, nBytesToUpload - nBytesUploaded);
@@ -208,13 +198,12 @@ namespace requesthandler {
                 }
                 // offset++; // skip a separator
 
-                std::cout << "[receive ]second packetHeader: " << packetHeader << std::endl;
+                std::cout << "[receive] second packetHeader: " << packetHeader << std::endl;
                 
                 switch(packetHeader) {
                     case DATA_BEG_PACKET_HEADER: {
                         std::string strSize;
                         offset++;
-                        std::cout << "[receive] offset: " << offset << std::endl;
                         while(offset < PACKET_SIZE && buffer[offset] != PACKET_SEPARATOR) {
                             strSize.push_back(buffer[offset++]);
                         }
@@ -233,7 +222,7 @@ namespace requesthandler {
                         break;
                 }
 
-                if(isOtherSideReadyToEndConnection && isOtherSideReadyToEndConnection) break;
+                if(isThisSideReadyToEndConnection && isOtherSideReadyToEndConnection) break;
 
                 std::cout << "[receive] "<< downloadBuffer.size() << " bytes downloaded, expected " << nBytesToDownload << " bytes.\n";
 
@@ -250,10 +239,9 @@ namespace requesthandler {
                     taskQueue.pop();
                 }
             }
-            std::cout << "The connection is closed\n";
-
-            // try send and lazy wait other side sending Close connection packet
+            std::cout << "File transfer is finished.\n";
             close(clientSocket);
+            std::cout << "Closed connection on both ends.\n";
         }
     };
 }

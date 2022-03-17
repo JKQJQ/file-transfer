@@ -64,8 +64,6 @@ namespace fileclient {
         }
 
         void closeConnection() {
-            send(clientSocket, "E", 1, 0);
-            close(clientSocket);
             delete serverAddress;
             delete clientAddress;
             std::cout << "client closed connection to server\n";
@@ -85,7 +83,6 @@ namespace fileclient {
             // init
             initialize();
 
-            
             // the next step is to send request to server and start receive file
             requesthandler::requestHandler(clientSocket, uploadPath, downloadPath, taskQueue)();
         }
