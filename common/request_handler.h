@@ -26,7 +26,7 @@ namespace requesthandler {
     static const char END_PACKET_HEADER = 'E';
     static const char PACKET_SEPARATOR = ':';
 
-    static const std::string SUCCESS_FILE_EXTENSION = ".success"; //  success file for marking success 
+    const std::string SUCCESS_FILE_EXTENSION = ".success"; //  success file for marking success 
     struct requestHandler {
         int clientSocket;
 
@@ -34,6 +34,7 @@ namespace requesthandler {
         std::string uploadPath;
         std::ifstream inUploadFileStream;
         long nBytesToUpload;
+        long nBytesUploaded;
         std::string fileNameUploadInProgress;
         bool isPendingUpload;   // the file may not be available yet
 
@@ -54,7 +55,8 @@ namespace requesthandler {
             taskQueue(taskQueue),
             nBytesToDownload(-1),
             isOtherSideReadyToEndConnection(false),
-            isPendingUpload(false)
+            nBytesUploaded(0)
+            // isPendingUpload(true)
             {}
 
         void sendAllData(char* buffer) {
@@ -76,17 +78,17 @@ namespace requesthandler {
                 int nBytesReceived = recv(clientSocket, buffer+nBytesReceivedTotal, PACKET_SIZE, 0);
 
                 nBytesReceivedTotal += nBytesReceived;
-                std::cout << "Packet send size expected: " << PACKET_SIZE << ", " << nBytesReceivedTotal << " received.\n";
+                std::cout << "Packet receive size expected: " << PACKET_SIZE << ", " << nBytesReceivedTotal << " received.\n";
             }
         }
 
-        inline std::filesystem::path getDownloadPath(std::string& fileName) {
+        inline std::filesystem::path getDownloadPath(const std::string& fileName) {
             auto ret = std::filesystem::path(downloadPath);
             ret += std::filesystem::path(fileName);
             return ret;
         }
 
-        inline std::filesystem::path getUploadPath(std::string& fileName) {
+        inline std::filesystem::path getUploadPath(const std::string& fileName) {
             auto ret = std::filesystem::path(uploadPath);
             ret += std::filesystem::path(fileName);
             return ret;
@@ -96,6 +98,7 @@ namespace requesthandler {
             inUploadFileStream = std::ifstream(getUploadPath(fileNameUploadInProgress), std::ios::binary | std::ios::in);
             inUploadFileStream.seekg(0, inUploadFileStream.end);
             nBytesToUpload = inUploadFileStream.tellg();
+            inUploadFileStream.seekg(0, inUploadFileStream.beg);
         }
 
         void operator()() {
@@ -110,75 +113,93 @@ namespace requesthandler {
                     buffer[offset++] = PACKET_SEPARATOR;
 
                     while(!taskQueue.empty()) {
-                        auto& fileName = taskQueue.front();
+                        std::string fileName = taskQueue.front();
 
-                        if(!std::filesystem::exists(getDownloadPath(fileName))) {
-                            std::cout << fileName << "already exists, skipping...\n" << std::endl;
+                        if(std::filesystem::exists(getDownloadPath(fileName + SUCCESS_FILE_EXTENSION))) {
+                            std::cout << fileName << " already exists, skipping...\n" << std::endl;
                             taskQueue.pop();
                             continue;
                         }
                         
+                        std::cout << "Got fileName from taskQueue: " << fileName << std::endl;
                         strcpy(buffer+offset, fileName.c_str());
                         offset += fileName.length();
+                        break;
                     }
                     buffer[offset++] = PACKET_SEPARATOR;
                 }
 
-                if(isPendingUpload && std::filesystem::exists(getUploadPath(fileNameUploadInProgress))) {
-                    isPendingUpload = false;
-                }
-
                 // send data or nop
-                if(!fileNameUploadInProgress.empty() && !isPendingUpload) {
-                    long packetRemainingSize = PACKET_SIZE - offset;
-                    int nBytesToRead = std::min(packetRemainingSize, nBytesToUpload);
-                    nBytesToUpload -= nBytesToRead;
+                if(!fileNameUploadInProgress.empty()) {
                     
-                    if(downloadBuffer.empty()) {
+                    if(nBytesUploaded == 0) {
                         buffer[offset++] = DATA_BEG_PACKET_HEADER;
+                        buffer[offset++] = PACKET_SEPARATOR;
+                        std::string strSize = std::to_string(nBytesToUpload);
+                        std::cout << "nBytesToUpload: " << nBytesToUpload << std::endl;
+                        strcpy(buffer + offset, strSize.c_str());
+                        offset += strSize.length();
                     } else {
                         buffer[offset++] = DATA_MID_PACKET_HEADER;
                     }
                     buffer[offset++] = PACKET_SEPARATOR;
+                    buffer[offset] = 0;
+                    std::cout << "temp buffer: " << buffer << std::endl;
+
+                    long packetRemainingSize = PACKET_SIZE - offset;
+                    int nBytesToRead = std::min(packetRemainingSize, nBytesToUpload - nBytesUploaded);
                     
                     inUploadFileStream.read(buffer+offset, nBytesToRead);
-                    offset += nBytesToRead;
+                    // offset += nBytesToRead;
+                    nBytesUploaded += nBytesToRead;
 
-                    if(nBytesToUpload == 0) fileNameUploadInProgress.clear();
+                    if(nBytesToUpload <= nBytesUploaded) fileNameUploadInProgress.clear();
                 } else {
+                    std::cout << fileNameUploadInProgress << std::endl;
                     buffer[offset++] = NIL_PACKET_HEADER;
                     buffer[offset++] = PACKET_SEPARATOR;
                 }
 
-                sendAllData(buffer);
+                sendAllData(buffer);                
 
                 receiveAllData(buffer);
 
                 // parse the packet
                 offset = 0;
                 char packetHeader = buffer[offset++];
+                std::cout << "packet header: " << packetHeader << std::endl;
                 if(packetHeader == REQUEST_PACKET_HEADER) {
                     fileNameUploadInProgress.clear();
+                    offset++;
                     while(offset < PACKET_SIZE && buffer[offset] != PACKET_SEPARATOR) {
                         fileNameUploadInProgress.push_back(buffer[offset++]);
                     }
 
+                    std::cout << "expected file: " << fileNameUploadInProgress  << std::endl;
+
                     // open the file and count how many byte are there.
-                    if(!std::filesystem::exists(getUploadPath(fileNameUploadInProgress))) {
-                        isPendingUpload = true;
+                    if(std::filesystem::exists(getUploadPath(fileNameUploadInProgress + SUCCESS_FILE_EXTENSION))) {
+                        // std::cout << "isPendingUpload is set to false\n";
+                        // isPendingUpload = false;
+                        std::cout << "The file exists\n";
+                        updateUploadInfileStream();
                     }
 
-                    offset += 2;
-                    packetHeader = buffer[offset];
+                    packetHeader = buffer[++offset];
                 }
-                offset++; // skip a separator
+                // offset++; // skip a separator
+
+                std::cout << "second packetHeader: " << packetHeader << std::endl;
                 
                 switch(packetHeader) {
                     case DATA_BEG_PACKET_HEADER: {
                         std::string strSize;
+                        offset += 2;
+                        std::cout << "offset: " << offset << std::endl;
                         while(offset < PACKET_SIZE && buffer[offset] != PACKET_SEPARATOR) {
                             strSize.push_back(buffer[offset++]);
                         }
+                        std::cout << "strSize: " << strSize << std::endl;
                         nBytesToDownload = std::stol(strSize);
                         offset++; // skip a separator
                     }
@@ -191,6 +212,8 @@ namespace requesthandler {
                         isOtherSideReadyToEndConnection = true;
                         break;
                 }
+
+                std::cout << downloadBuffer.size() << " bytes downloaded, expected " << nBytesToDownload << " bytes.\n";
 
                 if(downloadBuffer.size() >= nBytesToDownload) {
                     std::string downloadFile = taskQueue.front();
