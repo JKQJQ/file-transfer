@@ -19,10 +19,11 @@ A receiver scans the data directory and pushes all the not found files with rema
 
 After creating the connection, client and server are equal. They start a loop and inside the loop, `send()` first send `recv()`. Request packets have higer priority over data packets, but all of length N, padding end with random data if data length less than N.
 
-- request packets: `R:requested_file_name:other packet`, other packets could either be data packets or nil packets. if `R::other packet`, this means no file is being requested. If no data, the other packet should be a nil packet(`N:`)
-- data packets: `B:file_size:payload`(begin) or `M:payload`(middle)
-- nil packets: `N:`
-- end packets: `E:`, it should be the 
+- request packets: `R:requested_file_name:other packet`, other packets could either be data packets or nil packets. if `R::other packet`, this means no file is being requested. If no data, the other packet should be a nil packet(`N:`).
+- data packets: `B:file_size:payload`(begin) or `M:payload`(middle).
+- nil packets: `N:`, used when there is no data to transfer, only instruction is transferred.
+- end packets: `E:`, this packet is sent to end a connection when the transfer is finished.
+- pending packets: `P:`: the packet is sent when the file is not ready, almost equivalent to nil packet.
 
 
 It is the receivers' obligation to record the file_size and how many bytes left to read. All the paddings in the end of the last packet of a binary file should be abandoned.
