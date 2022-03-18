@@ -35,6 +35,9 @@ mkdir -p output/
 
 bash ./build-server.sh
 
+mkdir -p ${UPLOAD_DIR}
+mkdir -p ${DOWNLOAD_DIR}
+
 # for forwarder A
 nohup ${EXE} ${LISTEN_PORT_1} ${UPLOAD_DIR} ${DOWNLOAD_DIR} ${N_WORKER_A} 0 ${REQ_ID_START_A} ${REQ_ID_END_A} ${PREFIX} ${SUFFIX} > output/server1.out &
 nohup ${EXE} ${LISTEN_PORT_2} ${UPLOAD_DIR} ${DOWNLOAD_DIR} ${N_WORKER_A} 1 ${REQ_ID_START_A} ${REQ_ID_END_A} ${PREFIX} ${SUFFIX} > output/server2.out &
