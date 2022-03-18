@@ -51,6 +51,7 @@ SUFFIX=.zst
 mkdir -p ${FORWARD_DIR_A}
 mkdir -p ${FORWARD_DIR_B}
 
+# trader 1
 nohup ${EXE} ${N_WORKER} 0 ${SERVER_PORT_1} ${SERVER_IP_1} ${LOCAL_PORT_1} ${FORWARD_DIR_A} ${FORWARD_DIR_B} ${REQ_ID_START} ${REQ_ID_END} ${PREFIX} ${SUFFIX} > output/client1.out &
 nohup ${EXE} ${N_WORKER} 1 ${SERVER_PORT_2} ${SERVER_IP_2} ${LOCAL_PORT_2} ${FORWARD_DIR_A} ${FORWARD_DIR_B} ${REQ_ID_START} ${REQ_ID_END} ${PREFIX} ${SUFFIX} > output/client2.out &
 nohup ${EXE} ${N_WORKER} 2 ${SERVER_PORT_3} ${SERVER_IP_3} ${LOCAL_PORT_3} ${FORWARD_DIR_A} ${FORWARD_DIR_B} ${REQ_ID_START} ${REQ_ID_END} ${PREFIX} ${SUFFIX} > output/client3.out &

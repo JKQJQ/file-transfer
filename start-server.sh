@@ -27,7 +27,6 @@ PREFIX=stock
 SUFFIX=.zst
 
 
-#!/bin/bash
 pkill -f file_server
 
 rm -rf output/
