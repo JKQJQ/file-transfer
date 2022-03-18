@@ -2,20 +2,45 @@
 
 ######## VARIABLES ######################
 
-DATA_DIR=/data/team-10/test/order1/
+UPLOAD_DIR=/data/team-10/test_duplex/test1_compress
+DOWNLOAD_DIR=/data/team-10/test_duplex/test2_compress
+LISTEN_PORT_1=12340
+LISTEN_PORT_2=12341
+LISTEN_PORT_3=12342
+LISTEN_PORT_4=12343
+LISTEN_PORT_5=12344
+LISTEN_PORT_6=12345
 
 ####### END ############################
 
-pkill -f file_server
-
-rm -rf output/server*
-mkdir -p output/
-
-bash ./build-server.sh
+N_WORKER_A=3
+N_WORKER_B=3
+REQ_ID_START_A=0
+REQ_ID_END_A=250
+REQ_ID_START_B=250
+REQ_ID_END_B=500
 
 # executable file
 EXE=server/build/file_server
 
-nohup ${EXE} 12350 ${DATA_DIR} > output/server1.out &
-nohup ${EXE} 12351 ${DATA_DIR} > output/server2.out &
-nohup ${EXE} 12352 ${DATA_DIR} > output/server3.out &
+PREFIX=stock
+SUFFIX=.zst
+
+
+#!/bin/bash
+pkill -f file_server
+
+rm -rf output/
+mkdir -p output/
+
+bash ./build-server.sh
+
+# for forwarder A
+nohup ${EXE} ${LISTEN_PORT_1} ${UPLOAD_DIR} ${DOWNLOAD_DIR} ${N_WORKER_A} 0 ${REQ_ID_START_A} ${REQ_ID_END_A} ${PREFIX} ${SUFFIX} > output/server1.out &
+nohup ${EXE} ${LISTEN_PORT_2} ${UPLOAD_DIR} ${DOWNLOAD_DIR} ${N_WORKER_A} 1 ${REQ_ID_START_A} ${REQ_ID_END_A} ${PREFIX} ${SUFFIX} > output/server2.out &
+nohup ${EXE} ${LISTEN_PORT_3} ${UPLOAD_DIR} ${DOWNLOAD_DIR} ${N_WORKER_A} 2 ${REQ_ID_START_A} ${REQ_ID_END_A} ${PREFIX} ${SUFFIX} > output/server3.out &
+
+# for forwarder B
+nohup ${EXE} ${LISTEN_PORT_4} ${UPLOAD_DIR} ${DOWNLOAD_DIR} ${N_WORKER_B} 0 ${REQ_ID_START_B} ${REQ_ID_END_B} ${PREFIX} ${SUFFIX} > output/server4.out &
+nohup ${EXE} ${LISTEN_PORT_5} ${UPLOAD_DIR} ${DOWNLOAD_DIR} ${N_WORKER_B} 1 ${REQ_ID_START_B} ${REQ_ID_END_B} ${PREFIX} ${SUFFIX} > output/server5.out &
+nohup ${EXE} ${LISTEN_PORT_6} ${UPLOAD_DIR} ${DOWNLOAD_DIR} ${N_WORKER_B} 2 ${REQ_ID_START_B} ${REQ_ID_END_B} ${PREFIX} ${SUFFIX} > output/server6.out &
