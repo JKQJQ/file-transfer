@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>
+        Report - HackMD
+    </title>
+    <link rel="icon" type="image/png" href="https://hackmd.io/favicon.png">
+    <link rel="apple-touch-icon" href="https://hackmd.io/apple-touch-icon.png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" integrity="sha256-3iu9jgsy9TpTwXKb7bNQzqWekRX7pPK+2OLj3R922fo=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/3.5.0/octicons.min.css" integrity="sha256-QiWfLIsCT02Sdwkogf6YMiQlj4NE84MKkzEMkZnMGdg=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/themes/prism.min.css" integrity="sha256-vtR0hSWRc3Tb26iuN2oZHt3KRUomwTufNIf5/4oeCyg=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@hackmd/emojify.js@2.1.0/dist/css/basic/emojify.min.css" integrity="sha256-UOrvMOsSDSrW6szVLe8ZDZezBxh5IoIfgTwdNDgTjiU=" crossorigin="anonymous" />
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i|Source+Code+Pro:300,400,500|Source+Sans+Pro:300,300i,400,400i,600,600i|Source+Serif+Pro&subset=latin-ext);.hljs{display:block;background:#fff;padding:.5em;color:#333;overflow-x:auto}.hljs-comment,.hljs-meta{color:#969896}.hljs-emphasis,.hljs-quote,.hljs-string,.hljs-strong,.hljs-template-variable,.hljs-variable{color:#df5000}.hljs-keyword,.hljs-selector-tag,.hljs-type{color:#a71d5d}.hljs-attribute,.hljs-bullet,.hljs-literal,.hljs-number,.hljs-symbol{color:#0086b3}.hljs-built_in,.hljs-builtin-name{color:#005cc5}.hljs-name,.hljs-section{color:#63a35c}.hljs-tag{color:#333}.hljs-attr,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id,.hljs-selector-pseudo,.hljs-title{color:#795da3}.hljs-addition{color:#55a532;background-color:#eaffea}.hljs-deletion{color:#bd2c00;background-color:#ffecec}.hljs-link{text-decoration:underline}.markdown-body{font-size:16px;line-height:1.5;word-wrap:break-word}.markdown-body:after,.markdown-body:before{display:table;content:""}.markdown-body:after{clear:both}.markdown-body>:first-child{margin-top:0!important}.markdown-body>:last-child{margin-bottom:0!important}.markdown-body a:not([href]){color:inherit;text-decoration:none}.markdown-body .absent{color:#c00}.markdown-body .anchor{float:left;padding-right:4px;margin-left:-20px;line-height:1}.markdown-body .anchor:focus{outline:none}.markdown-body blockquote,.markdown-body dl,.markdown-body ol,.markdown-body p,.markdown-body pre,.markdown-body table,.markdown-body ul{margin-top:0;margin-bottom:16px}.markdown-body hr{height:.25em;padding:0;margin:24px 0;background-color:#e7e7e7;border:0}.markdown-body blockquote{font-size:16px;padding:0 1em;color:#777;border-left:.25em solid #ddd}.markdown-body blockquote>:first-child{margin-top:0}.markdown-body blockquote>:last-child{margin-bottom:0}.markdown-body kbd,.popover kbd{display:inline-block;padding:3px 5px;font-size:11px;line-height:10px;color:#555;vertical-align:middle;background-color:#fcfcfc;border:1px solid #ccc;border-bottom-color:#bbb;border-radius:3px;box-shadow:inset 0 -1px 0 #bbb}.markdown-body .loweralpha{list-style-type:lower-alpha}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{margin-top:24px;margin-bottom:16px;font-weight:600;line-height:1.25}.markdown-body h1 .octicon-link,.markdown-body h2 .octicon-link,.markdown-body h3 .octicon-link,.markdown-body h4 .octicon-link,.markdown-body h5 .octicon-link,.markdown-body h6 .octicon-link{color:#000;vertical-align:middle;visibility:hidden}.markdown-body h1:hover .anchor,.markdown-body h2:hover .anchor,.markdown-body h3:hover .anchor,.markdown-body h4:hover .anchor,.markdown-body h5:hover .anchor,.markdown-body h6:hover .anchor{text-decoration:none}.markdown-body h1:hover .anchor .octicon-link,.markdown-body h2:hover .anchor .octicon-link,.markdown-body h3:hover .anchor .octicon-link,.markdown-body h4:hover .anchor .octicon-link,.markdown-body h5:hover .anchor .octicon-link,.markdown-body h6:hover .anchor .octicon-link{visibility:visible}.markdown-body h1 code,.markdown-body h1 tt,.markdown-body h2 code,.markdown-body h2 tt,.markdown-body h3 code,.markdown-body h3 tt,.markdown-body h4 code,.markdown-body h4 tt,.markdown-body h5 code,.markdown-body h5 tt,.markdown-body h6 code,.markdown-body h6 tt{font-size:inherit}.markdown-body h1{font-size:2em}.markdown-body h1,.markdown-body h2{padding-bottom:.3em;border-bottom:1px solid #eee}.markdown-body h2{font-size:1.5em}.markdown-body h3{font-size:1.25em}.markdown-body h4{font-size:1em}.markdown-body h5{font-size:.875em}.markdown-body h6{font-size:.85em;color:#777}.markdown-body ol,.markdown-body ul{padding-left:2em}.markdown-body ol.no-list,.markdown-body ul.no-list{padding:0;list-style-type:none}.markdown-body ol ol,.markdown-body ol ul,.markdown-body ul ol,.markdown-body ul ul{margin-top:0;margin-bottom:0}.markdown-body li>p{margin-top:16px}.markdown-body li+li{padding-top:.25em}.markdown-body dl{padding:0}.markdown-body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}.markdown-body dl dd{padding:0 16px;margin-bottom:16px}.markdown-body table{display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}.markdown-body table th{font-weight:700}.markdown-body table td,.markdown-body table th{padding:6px 13px;border:1px solid #ddd}.markdown-body table tr{background-color:#fff;border-top:1px solid #ccc}.markdown-body table tr:nth-child(2n){background-color:#f8f8f8}.markdown-body img{max-width:100%;box-sizing:content-box;background-color:#fff}.markdown-body img[align=right]{padding-left:20px}.markdown-body img[align=left]{padding-right:20px}.markdown-body .emoji{max-width:none;vertical-align:text-top;background-color:transparent}.markdown-body span.frame{display:block;overflow:hidden}.markdown-body span.frame>span{display:block;float:left;width:auto;padding:7px;margin:13px 0 0;overflow:hidden;border:1px solid #ddd}.markdown-body span.frame span img{display:block;float:left}.markdown-body span.frame span span{display:block;padding:5px 0 0;clear:both;color:#333}.markdown-body span.align-center{display:block;overflow:hidden;clear:both}.markdown-body span.align-center>span{display:block;margin:13px auto 0;overflow:hidden;text-align:center}.markdown-body span.align-center span img{margin:0 auto;text-align:center}.markdown-body span.align-right{display:block;overflow:hidden;clear:both}.markdown-body span.align-right>span{display:block;margin:13px 0 0;overflow:hidden;text-align:right}.markdown-body span.align-right span img{margin:0;text-align:right}.markdown-body span.float-left{display:block;float:left;margin-right:13px;overflow:hidden}.markdown-body span.float-left span{margin:13px 0 0}.markdown-body span.float-right{display:block;float:right;margin-left:13px;overflow:hidden}.markdown-body span.float-right>span{display:block;margin:13px auto 0;overflow:hidden;text-align:right}.markdown-body code,.markdown-body tt{padding:0;padding-top:.2em;padding-bottom:.2em;margin:0;font-size:85%;background-color:rgba(0,0,0,.04);border-radius:3px}.markdown-body code:after,.markdown-body code:before,.markdown-body tt:after,.markdown-body tt:before{letter-spacing:-.2em;content:"\00a0"}.markdown-body code br,.markdown-body tt br{display:none}.markdown-body del code{text-decoration:inherit}.markdown-body pre{word-wrap:normal}.markdown-body pre>code{padding:0;margin:0;font-size:100%;word-break:normal;white-space:pre;background:transparent;border:0}.markdown-body .highlight{margin-bottom:16px}.markdown-body .highlight pre{margin-bottom:0;word-break:normal}.markdown-body .highlight pre,.markdown-body pre{padding:16px;overflow:auto;font-size:85%;line-height:1.45;background-color:#f7f7f7;border-radius:3px}.markdown-body pre code,.markdown-body pre tt{display:inline;max-width:auto;padding:0;margin:0;overflow:visible;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}.markdown-body pre code:after,.markdown-body pre code:before,.markdown-body pre tt:after,.markdown-body pre tt:before{content:normal}.markdown-body .csv-data td,.markdown-body .csv-data th{padding:5px;overflow:hidden;font-size:12px;line-height:1;text-align:left;white-space:nowrap}.markdown-body .csv-data .blob-line-num{padding:10px 8px 9px;text-align:right;background:#fff;border:0}.markdown-body .csv-data tr{border-top:0}.markdown-body .csv-data th{font-weight:700;background:#f8f8f8;border-top:0}.news .alert .markdown-body blockquote{padding:0 0 0 40px;border:0 none}.activity-tab .news .alert .commits,.activity-tab .news .markdown-body blockquote{padding-left:0}.task-list-item{list-style-type:none}.task-list-item label{font-weight:400}.task-list-item.enabled label{cursor:pointer}.task-list-item+.task-list-item{margin-top:3px}.task-list-item-checkbox{float:left;margin:.31em 0 .2em -1.3em!important;vertical-align:middle;cursor:default!important}.markdown-body{padding-top:40px;padding-bottom:40px;max-width:758px;overflow:visible!important;position:relative}.markdown-body .emoji{vertical-align:top}.markdown-body pre{border:inherit!important}.markdown-body code{color:inherit!important}.markdown-body pre code .wrapper{display:-moz-inline-flex;display:-ms-inline-flex;display:-o-inline-flex;display:inline-flex}.markdown-body pre code .gutter{float:left;overflow:hidden;-webkit-user-select:none;user-select:none}.markdown-body pre code .gutter.linenumber{text-align:right;position:relative;display:inline-block;cursor:default;z-index:4;padding:0 8px 0 0;min-width:20px;box-sizing:content-box;color:#afafaf!important;border-right:3px solid #6ce26c!important}.markdown-body pre code .gutter.linenumber>span:before{content:attr(data-linenumber)}.markdown-body pre code .code{float:left;margin:0 0 0 16px}.markdown-body .gist .line-numbers{border-left:none;border-top:none;border-bottom:none}.markdown-body .gist .line-data{border:none}.markdown-body .gist table{border-spacing:0;border-collapse:inherit!important}.markdown-body code[data-gist-id]{background:none;padding:0}.markdown-body code[data-gist-id]:after,.markdown-body code[data-gist-id]:before{content:""}.markdown-body code[data-gist-id] .blob-num{border:unset}.markdown-body code[data-gist-id] table{overflow:unset;margin-bottom:unset}.markdown-body code[data-gist-id] table tr{background:unset}.markdown-body[dir=rtl] pre{direction:ltr}.markdown-body[dir=rtl] code{direction:ltr;unicode-bidi:embed}.markdown-body .alert>p:last-child{margin-bottom:0}.markdown-body pre.abc,.markdown-body pre.flow-chart,.markdown-body pre.graphviz,.markdown-body pre.mermaid,.markdown-body pre.sequence-diagram,.markdown-body pre.vega{text-align:center;background-color:inherit;border-radius:0;white-space:inherit;overflow:visible}.markdown-body pre.abc>code,.markdown-body pre.flow-chart>code,.markdown-body pre.graphviz>code,.markdown-body pre.mermaid>code,.markdown-body pre.sequence-diagram>code,.markdown-body pre.vega>code{text-align:left}.markdown-body pre.abc>svg,.markdown-body pre.flow-chart>svg,.markdown-body pre.graphviz>svg,.markdown-body pre.mermaid>svg,.markdown-body pre.sequence-diagram>svg,.markdown-body pre.vega>svg{max-width:100%;height:100%}.markdown-body pre>code.wrap{white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word}.markdown-body .alert>p:last-child,.markdown-body .alert>ul:last-child{margin-bottom:0}.markdown-body summary{display:list-item}.markdown-body summary:focus{outline:none}.markdown-body details summary{cursor:pointer}.markdown-body details:not([open])>:not(summary){display:none}.markdown-body figure{margin:1em 40px}.markdown-body .mark,.markdown-body mark{background-color:#fff1a7}.vimeo,.youtube{cursor:pointer;display:table;text-align:center;background-position:50%;background-repeat:no-repeat;background-size:contain;background-color:#000;overflow:hidden}.vimeo,.youtube{position:relative;width:100%}.youtube{padding-bottom:56.25%}.vimeo img{width:100%;object-fit:contain;z-index:0}.youtube img{object-fit:cover;z-index:0}.vimeo iframe,.youtube iframe,.youtube img{width:100%;height:100%;position:absolute;top:0;left:0}.vimeo iframe,.youtube iframe{vertical-align:middle;z-index:1}.vimeo .icon,.youtube .icon{position:absolute;height:auto;width:auto;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;opacity:.3;transition:opacity .2s;z-index:0}.vimeo:hover .icon,.youtube:hover .icon{opacity:.6;transition:opacity .2s}.slideshare .inner,.speakerdeck .inner{position:relative;width:100%}.slideshare .inner iframe,.speakerdeck .inner iframe{position:absolute;top:0;bottom:0;left:0;right:0;width:100%;height:100%}.figma{display:table;position:relative;width:100%;padding-bottom:56.25%}.figma iframe{position:absolute;top:0;bottom:0;left:0;right:0;width:100%;height:100%;border:1px solid #eee}.markmap-container{height:300px}.markmap-container>svg{width:100%;height:100%}.MJX_Assistive_MathML{display:none}#MathJax_Message{z-index:1000!important}.ui-infobar{position:relative;z-index:2;max-width:760px;margin:25px auto -25px;color:#777}.toc .invisable-node{list-style-type:none}.ui-toc{position:fixed;bottom:20px;z-index:998}.ui-toc.both-mode{margin-left:8px}.ui-toc.both-mode .ui-toc-label{height:40px;padding:10px 4px;border-top-left-radius:0;border-bottom-left-radius:0}.ui-toc-label{background-color:#e6e6e6;border:none;color:#868686;transition:opacity .2s}.ui-toc .open .ui-toc-label{opacity:1;color:#fff;transition:opacity .2s}.ui-toc-label:focus{opacity:.3;background-color:#ccc;color:#000}.ui-toc-label:hover{opacity:1;background-color:#ccc;transition:opacity .2s}.ui-toc-dropdown{margin-top:20px;margin-bottom:20px;padding-left:10px;padding-right:10px;max-width:45vw;width:25vw;max-height:70vh;overflow:auto;text-align:inherit}.ui-toc-dropdown>.toc{max-height:calc(70vh - 100px);overflow:auto}.ui-toc-dropdown[dir=rtl] .nav{padding-right:0;letter-spacing:.0029em}.ui-toc-dropdown a{overflow:hidden;text-overflow:ellipsis;white-space:pre}.ui-toc-dropdown .nav>li>a{display:block;padding:4px 20px;font-size:13px;font-weight:500;color:#767676}.ui-toc-dropdown .nav>li:first-child:last-child>ul,.ui-toc-dropdown .toc.expand ul{display:block}.ui-toc-dropdown .nav>li>a:focus,.ui-toc-dropdown .nav>li>a:hover{padding-left:19px;color:#000;text-decoration:none;background-color:transparent;border-left:1px solid #000}.ui-toc-dropdown[dir=rtl] .nav>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav>li>a:hover{padding-right:19px;border-left:none;border-right:1px solid #000}.ui-toc-dropdown .nav>.active:focus>a,.ui-toc-dropdown .nav>.active:hover>a,.ui-toc-dropdown .nav>.active>a{padding-left:18px;font-weight:700;color:#000;background-color:transparent;border-left:2px solid #000}.ui-toc-dropdown[dir=rtl] .nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav>.active>a{padding-right:18px;border-left:none;border-right:2px solid #000}.ui-toc-dropdown .nav .nav{display:none;padding-bottom:10px}.ui-toc-dropdown .nav>.active>ul{display:block}.ui-toc-dropdown .nav .nav>li>a{padding-top:1px;padding-bottom:1px;padding-left:30px;font-size:12px;font-weight:400}.ui-toc-dropdown[dir=rtl] .nav .nav>li>a{padding-right:30px}.ui-toc-dropdown .nav .nav>li>ul>li>a{padding-top:1px;padding-bottom:1px;padding-left:40px;font-size:12px;font-weight:400}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a{padding-right:40px}.ui-toc-dropdown .nav .nav>li>a:focus,.ui-toc-dropdown .nav .nav>li>a:hover{padding-left:29px}.ui-toc-dropdown[dir=rtl] .nav .nav>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav .nav>li>a:hover{padding-right:29px}.ui-toc-dropdown .nav .nav>li>ul>li>a:focus,.ui-toc-dropdown .nav .nav>li>ul>li>a:hover{padding-left:39px}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a:hover{padding-right:39px}.ui-toc-dropdown .nav .nav>.active:focus>a,.ui-toc-dropdown .nav .nav>.active:hover>a,.ui-toc-dropdown .nav .nav>.active>a{padding-left:28px;font-weight:500}.ui-toc-dropdown[dir=rtl] .nav .nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>a{padding-right:28px}.ui-toc-dropdown .nav .nav>.active>.nav>.active:focus>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active:hover>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active>a{padding-left:38px;font-weight:500}.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active>a{padding-right:38px}.markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,sans-serif}html[lang^=ja] .markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}html[lang=zh-tw] .markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}html[lang=zh-cn] .markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}html .markdown-body[lang^=ja]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}html .markdown-body[lang=zh-tw]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}html .markdown-body[lang=zh-cn]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}html[lang^=ja] .ui-toc-dropdown{font-family:Source Sans Pro,Helvetica,Arial,Meiryo UI,MS PGothic,ＭＳ\ Ｐゴシック,sans-serif}html[lang=zh-tw] .ui-toc-dropdown{font-family:Source Sans Pro,Helvetica,Arial,Microsoft JhengHei UI,微軟正黑UI,sans-serif}html[lang=zh-cn] .ui-toc-dropdown{font-family:Source Sans Pro,Helvetica,Arial,Microsoft YaHei UI,微软雅黑UI,sans-serif}html .ui-toc-dropdown[lang^=ja]{font-family:Source Sans Pro,Helvetica,Arial,Meiryo UI,MS PGothic,ＭＳ\ Ｐゴシック,sans-serif}html .ui-toc-dropdown[lang=zh-tw]{font-family:Source Sans Pro,Helvetica,Arial,Microsoft JhengHei UI,微軟正黑UI,sans-serif}html .ui-toc-dropdown[lang=zh-cn]{font-family:Source Sans Pro,Helvetica,Arial,Microsoft YaHei UI,微软雅黑UI,sans-serif}.ui-affix-toc{position:fixed;top:0;max-width:15vw;max-height:70vh;overflow:auto}.back-to-top,.expand-toggle,.go-to-bottom{display:block;padding:4px 10px;margin-top:10px;margin-left:10px;font-size:12px;font-weight:500;color:#999}.back-to-top:focus,.back-to-top:hover,.expand-toggle:focus,.expand-toggle:hover,.go-to-bottom:focus,.go-to-bottom:hover{color:#563d7c;text-decoration:none}.back-to-top,.go-to-bottom{margin-top:0}.ui-user-icon{width:20px;height:20px;display:block;border-radius:50%;margin-top:2px;margin-bottom:2px;margin-right:5px;background-position:50%;background-repeat:no-repeat;background-size:cover}.ui-user-icon.small{width:18px;height:18px;display:inline-block;vertical-align:middle;margin:0 0 .2em}.ui-infobar>small>span{line-height:22px}.ui-infobar>small .dropdown{display:inline-block}.ui-infobar>small .dropdown a:focus,.ui-infobar>small .dropdown a:hover{text-decoration:none}.ui-more-info{color:#888;cursor:pointer;vertical-align:middle}.ui-more-info .fa{font-size:16px}.ui-connectedGithub,.ui-published-note{color:#888}.ui-connectedGithub{line-height:23px;white-space:nowrap}.ui-connectedGithub a.file-path{color:#888;text-decoration:none;padding-left:22px}.ui-connectedGithub a.file-path:active,.ui-connectedGithub a.file-path:hover{color:#888;text-decoration:underline}.ui-connectedGithub .fa{font-size:20px}.ui-published-note .fa{font-size:20px;vertical-align:top}.unselectable{-webkit-user-select:none;-o-user-select:none;user-select:none}.selectable{-webkit-user-select:text;-o-user-select:text;user-select:text}@media print{blockquote,div,img,pre,table{page-break-inside:avoid!important}a[href]:after{font-size:12px!important}}.markdown-body.slides{position:relative;z-index:1;color:#222}.markdown-body.slides:before{content:"";display:block;position:absolute;top:0;left:0;right:0;bottom:0;z-index:-1;background-color:currentColor;box-shadow:0 0 0 50vw}.markdown-body.slides section[data-markdown]{position:relative;margin-bottom:1.5em;background-color:#fff;text-align:center}.markdown-body.slides section[data-markdown] code{text-align:left}.markdown-body.slides section[data-markdown]:before{content:"";display:block;padding-bottom:56.23%}.markdown-body.slides section[data-markdown]>div:first-child{position:absolute;top:50%;left:1em;right:1em;transform:translateY(-50%);max-height:100%;overflow:hidden}.markdown-body.slides section[data-markdown]>ul{display:inline-block}.markdown-body.slides>section>section+section:after{content:"";position:absolute;top:-1.5em;right:1em;height:1.5em;border:3px solid #777}.site-ui-font{font-family:Source Sans Pro,Helvetica,Arial,sans-serif}html[lang^=ja] .site-ui-font{font-family:Source Sans Pro,Helvetica,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}html[lang=zh-tw] .site-ui-font{font-family:Source Sans Pro,Helvetica,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}html[lang=zh-cn] .site-ui-font{font-family:Source Sans Pro,Helvetica,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}body{font-smoothing:subpixel-antialiased!important;-webkit-font-smoothing:subpixel-antialiased!important;-moz-osx-font-smoothing:auto!important;text-shadow:0 0 1em transparent,1px 1px 1.2px rgba(0,0,0,.004);-webkit-overflow-scrolling:touch;letter-spacing:.025em;font-family:Source Sans Pro,Helvetica,Arial,sans-serif}html[lang^=ja] body{font-family:Source Sans Pro,Helvetica,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}html[lang=zh-tw] body{font-family:Source Sans Pro,Helvetica,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}html[lang=zh-cn] body{font-family:Source Sans Pro,Helvetica,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}abbr[title]{border-bottom:none;text-decoration:underline;-webkit-text-decoration:underline dotted;text-decoration:underline dotted}abbr[data-original-title],abbr[title]{cursor:help}body.modal-open{overflow-y:auto;padding-right:0!important}
+    </style>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" integrity="sha256-3Jy/GbSLrg0o9y5Z5n1uw0qxZECH7C6OQpVBgNFYa0g=" crossorigin="anonymous"></script>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js" integrity="sha256-g6iAfvZp+nDQ2TdTR/VVKJf3bGro4ub5fvWSWVRi2NE=" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js" integrity="sha256-8E4Is26QH0bD52WoQpcB+R/tcWQtpzlCojrybUd7Mxo=" crossorigin="anonymous"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div id="doc" class="markdown-body container-fluid comment-enabled comment-inner" data-hard-breaks="true"><h1 id="Report" data-id="Report"><a class="anchor hidden-xs" href="#Report" title="Report"><span class="octicon octicon-link"></span></a><span>Report</span></h1><p><span>项目开源链接：</span><a href="https://github.com/JKQJQ/" target="_blank" rel="noopener"><span>https://github.com/JKQJQ/</span></a></p><h2 id="Design" data-id="Design"><a class="anchor hidden-xs" href="#Design" title="Design"><span class="octicon octicon-link"></span></a><span>Design</span></h2><h3 id="运行依赖" data-id="运行依赖"><a class="anchor hidden-xs" href="#运行依赖" title="运行依赖"><span class="octicon octicon-link"></span></a><span>运行依赖</span></h3><ul>
+<li><span>g++ (GCC) 8.5.0 20210514 (Red Hat 8.5.0-4)</span></li>
+<li><span>cmake version 3.20.2</span></li>
+<li><span>zstd version 1.5.2</span></li>
+</ul><h3 id="架构设计" data-id="架构设计"><a class="anchor hidden-xs" href="#架构设计" title="架构设计"><span class="octicon octicon-link"></span></a><span>架构设计</span></h3><p><span>我们将整体项目划分为文件传输、数据处理、模拟撮合三部分。</span></p><p><span>考虑到比赛时限是</span><span class="mathjax"><span class="MathJax_Preview" style="color: inherit;"></span><span id="MathJax-Element-11-Frame" class="mjx-chtml MathJax_CHTML" tabindex="0" style="font-size: 119%; position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mn>45</mn><mi>m</mi><mi>i</mi><mi>n</mi></math>" role="presentation"><span id="MJXc-Node-132" class="mjx-math" aria-hidden="true"><span id="MJXc-Node-133" class="mjx-mrow"><span id="MJXc-Node-134" class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.37em; padding-bottom: 0.37em;">45</span></span><span id="MJXc-Node-135" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.213em; padding-bottom: 0.265em;">m</span></span><span id="MJXc-Node-136" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.423em; padding-bottom: 0.265em;">i</span></span><span id="MJXc-Node-137" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.213em; padding-bottom: 0.265em;">n</span></span></span></span><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>45</mn><mi>m</mi><mi>i</mi><mi>n</mi></math></span></span><script type="math/tex" id="MathJax-Element-11">45min</script></span><span>，而每支股票有全量一亿条order数据，平均到两台trader机器上是五千万条，在相同存储格式下，trade条数约是order的一半，所以在真正发生交易时，两者的传输是overlap的，因此总体耗时就是传输order时间。</span></p><p><span>如果trader将自己全量的数据上传至exchange，在三条</span><span class="mathjax"><span class="MathJax_Preview" style="color: inherit;"></span><span id="MathJax-Element-12-Frame" class="mjx-chtml MathJax_CHTML" tabindex="0" style="font-size: 119%; position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mn>1.5</mn><mi>M</mi><mi>b</mi><mi>p</mi><mi>s</mi></math>" role="presentation"><span id="MJXc-Node-138" class="mjx-math" aria-hidden="true"><span id="MJXc-Node-139" class="mjx-mrow"><span id="MJXc-Node-140" class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.37em; padding-bottom: 0.37em;">1.5</span></span><span id="MJXc-Node-141" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.475em; padding-bottom: 0.265em; padding-right: 0.081em;">M</span></span><span id="MJXc-Node-142" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.475em; padding-bottom: 0.265em;">b</span></span><span id="MJXc-Node-143" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.213em; padding-bottom: 0.475em;">p</span></span><span id="MJXc-Node-144" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.213em; padding-bottom: 0.265em;">s</span></span></span></span><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>1.5</mn><mi>M</mi><mi>b</mi><mi>p</mi><mi>s</mi></math></span></span><script type="math/tex" id="MathJax-Element-12">1.5Mbps</script></span><span> TCP连接的条件下，正好需要传输约</span><span class="mathjax"><span class="MathJax_Preview" style="color: inherit;"></span><span id="MathJax-Element-13-Frame" class="mjx-chtml MathJax_CHTML" tabindex="0" style="font-size: 119%; position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mn>45</mn><mi>m</mi><mi>i</mi><mi>n</mi></math>" role="presentation"><span id="MJXc-Node-145" class="mjx-math" aria-hidden="true"><span id="MJXc-Node-146" class="mjx-mrow"><span id="MJXc-Node-147" class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.37em; padding-bottom: 0.37em;">45</span></span><span id="MJXc-Node-148" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.213em; padding-bottom: 0.265em;">m</span></span><span id="MJXc-Node-149" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.423em; padding-bottom: 0.265em;">i</span></span><span id="MJXc-Node-150" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.213em; padding-bottom: 0.265em;">n</span></span></span></span><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>45</mn><mi>m</mi><mi>i</mi><mi>n</mi></math></span></span><script type="math/tex" id="MathJax-Element-13">45min</script></span><span>（比赛规定时间）：</span></p><p><span class="mathjax"><span class="MathJax_Preview" style="color: inherit;"></span><span class="mjx-chtml MJXc-display" style="text-align: center;"><span id="MathJax-Element-14-Frame" class="mjx-chtml MathJax_CHTML" tabindex="0" style="font-size: 119%; text-align: center; position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot; display=&quot;block&quot;><mn>500</mn><mo>&amp;#x00D7;</mo><mn>1000</mn><mo>&amp;#x00D7;</mo><mn>1000</mn><mo>&amp;#x00D7;</mo><mo stretchy=&quot;false&quot;>(</mo><mn>4</mn><mi>i</mi><mi>n</mi><mi>t</mi><mo>+</mo><mn>1</mn><mi>d</mi><mi>o</mi><mi>u</mi><mi>b</mi><mi>l</mi><mi>e</mi><mo stretchy=&quot;false&quot;>)</mo><mrow class=&quot;MJX-TeXAtom-ORD&quot;><mo>/</mo></mrow><mn>1024</mn><mrow class=&quot;MJX-TeXAtom-ORD&quot;><mo>/</mo></mrow><mn>1024</mn><mrow class=&quot;MJX-TeXAtom-ORD&quot;><mo>/</mo></mrow><mn>4.5</mn><mi>M</mi><mi>B</mi><mrow class=&quot;MJX-TeXAtom-ORD&quot;><mo>/</mo></mrow><mn>60</mn><mo stretchy=&quot;false&quot;>(</mo><mi>s</mi><mi>e</mi><mi>c</mi><mrow class=&quot;MJX-TeXAtom-ORD&quot;><mo>/</mo></mrow><mi>m</mi><mi>i</mi><mi>n</mi><mo stretchy=&quot;false&quot;>)</mo><mo>=</mo><mn>42.38</mn><mi>m</mi><mi>i</mi><mi>n</mi></math>" role="presentation"><span id="MJXc-Node-151" class="mjx-math" aria-hidden="true"><span id="MJXc-Node-152" class="mjx-mrow"><span id="MJXc-Node-153" class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.37em; padding-bottom: 0.37em;">500</span></span><span id="MJXc-Node-154" class="mjx-mo MJXc-space2"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.213em; padding-bottom: 0.318em;">×</span></span><span id="MJXc-Node-155" class="mjx-mn MJXc-space2"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.37em; padding-bottom: 0.37em;">1000</span></span><span id="MJXc-Node-156" class="mjx-mo MJXc-space2"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.213em; padding-bottom: 0.318em;">×</span></span><span id="MJXc-Node-157" class="mjx-mn MJXc-space2"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.37em; padding-bottom: 0.37em;">1000</span></span><span id="MJXc-Node-158" class="mjx-mo MJXc-space2"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.213em; padding-bottom: 0.318em;">×</span></span><span id="MJXc-Node-159" class="mjx-mo MJXc-space2"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.475em; padding-bottom: 0.58em;">(</span></span><span id="MJXc-Node-160" class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.37em; padding-bottom: 0.318em;">4</span></span><span id="MJXc-Node-161" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.423em; padding-bottom: 0.265em;">i</span></span><span id="MJXc-Node-162" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.213em; padding-bottom: 0.265em;">n</span></span><span id="MJXc-Node-163" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.423em; padding-bottom: 0.265em;">t</span></span><span id="MJXc-Node-164" class="mjx-mo MJXc-space2"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.318em; padding-bottom: 0.423em;">+</span></span><span id="MJXc-Node-165" class="mjx-mn MJXc-space2"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.37em; padding-bottom: 0.318em;">1</span></span><span id="MJXc-Node-166" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.475em; padding-bottom: 0.265em; padding-right: 0.003em;">d</span></span><span id="MJXc-Node-167" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.213em; padding-bottom: 0.265em;">o</span></span><span id="MJXc-Node-168" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.213em; padding-bottom: 0.265em;">u</span></span><span id="MJXc-Node-169" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.475em; padding-bottom: 0.265em;">b</span></span><span id="MJXc-Node-170" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.475em; padding-bottom: 0.265em;">l</span></span><span id="MJXc-Node-171" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.213em; padding-bottom: 0.265em;">e</span></span><span id="MJXc-Node-172" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.475em; padding-bottom: 0.58em;">)</span></span><span id="MJXc-Node-173" class="mjx-texatom"><span id="MJXc-Node-174" class="mjx-mrow"><span id="MJXc-Node-175" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.475em; padding-bottom: 0.58em;">/</span></span></span></span><span id="MJXc-Node-176" class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.37em; padding-bottom: 0.37em;">1024</span></span><span id="MJXc-Node-177" class="mjx-texatom"><span id="MJXc-Node-178" class="mjx-mrow"><span id="MJXc-Node-179" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.475em; padding-bottom: 0.58em;">/</span></span></span></span><span id="MJXc-Node-180" class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.37em; padding-bottom: 0.37em;">1024</span></span><span id="MJXc-Node-181" class="mjx-texatom"><span id="MJXc-Node-182" class="mjx-mrow"><span id="MJXc-Node-183" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.475em; padding-bottom: 0.58em;">/</span></span></span></span><span id="MJXc-Node-184" class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.37em; padding-bottom: 0.37em;">4.5</span></span><span id="MJXc-Node-185" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.475em; padding-bottom: 0.265em; padding-right: 0.081em;">M</span></span><span id="MJXc-Node-186" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.475em; padding-bottom: 0.265em;">B</span></span><span id="MJXc-Node-187" class="mjx-texatom"><span id="MJXc-Node-188" class="mjx-mrow"><span id="MJXc-Node-189" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.475em; padding-bottom: 0.58em;">/</span></span></span></span><span id="MJXc-Node-190" class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.37em; padding-bottom: 0.37em;">60</span></span><span id="MJXc-Node-191" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.475em; padding-bottom: 0.58em;">(</span></span><span id="MJXc-Node-192" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.213em; padding-bottom: 0.265em;">s</span></span><span id="MJXc-Node-193" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.213em; padding-bottom: 0.265em;">e</span></span><span id="MJXc-Node-194" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.213em; padding-bottom: 0.265em;">c</span></span><span id="MJXc-Node-195" class="mjx-texatom"><span id="MJXc-Node-196" class="mjx-mrow"><span id="MJXc-Node-197" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.475em; padding-bottom: 0.58em;">/</span></span></span></span><span id="MJXc-Node-198" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.213em; padding-bottom: 0.265em;">m</span></span><span id="MJXc-Node-199" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.423em; padding-bottom: 0.265em;">i</span></span><span id="MJXc-Node-200" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.213em; padding-bottom: 0.265em;">n</span></span><span id="MJXc-Node-201" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.475em; padding-bottom: 0.58em;">)</span></span><span id="MJXc-Node-202" class="mjx-mo MJXc-space3"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.055em; padding-bottom: 0.318em;">=</span></span><span id="MJXc-Node-203" class="mjx-mn MJXc-space3"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.37em; padding-bottom: 0.37em;">42.38</span></span><span id="MJXc-Node-204" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.213em; padding-bottom: 0.265em;">m</span></span><span id="MJXc-Node-205" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.423em; padding-bottom: 0.265em;">i</span></span><span id="MJXc-Node-206" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.213em; padding-bottom: 0.265em;">n</span></span></span></span><span class="MJX_Assistive_MathML MJX_Assistive_MathML_Block" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mn>500</mn><mo>×</mo><mn>1000</mn><mo>×</mo><mn>1000</mn><mo>×</mo><mo stretchy="false">(</mo><mn>4</mn><mi>i</mi><mi>n</mi><mi>t</mi><mo>+</mo><mn>1</mn><mi>d</mi><mi>o</mi><mi>u</mi><mi>b</mi><mi>l</mi><mi>e</mi><mo stretchy="false">)</mo><mrow class="MJX-TeXAtom-ORD"><mo>/</mo></mrow><mn>1024</mn><mrow class="MJX-TeXAtom-ORD"><mo>/</mo></mrow><mn>1024</mn><mrow class="MJX-TeXAtom-ORD"><mo>/</mo></mrow><mn>4.5</mn><mi>M</mi><mi>B</mi><mrow class="MJX-TeXAtom-ORD"><mo>/</mo></mrow><mn>60</mn><mo stretchy="false">(</mo><mi>s</mi><mi>e</mi><mi>c</mi><mrow class="MJX-TeXAtom-ORD"><mo>/</mo></mrow><mi>m</mi><mi>i</mi><mi>n</mi><mo stretchy="false">)</mo><mo>=</mo><mn>42.38</mn><mi>m</mi><mi>i</mi><mi>n</mi></math></span></span></span><script type="math/tex; mode=display" id="MathJax-Element-14">500 \times 1000 \times 1000 \times (4int + 1 double)/1024/1024/4.5MB/60(sec/min) = 42.38min</script></span></p><p><span>考虑到比赛中的一些突发情况，因此我们考虑对文件传输做优化，</span><strong><span>通过一些精妙的设计</span></strong><span>。trader1将一半的数据通过exchange 1传输，另一半数据通过exchange 2传输，直接将order信息转发到trader2本地。在两台trader本地对全量order分别进行模拟撮合。所以我们需要的时间是原来的一半，为</span><span class="mathjax"><span class="MathJax_Preview" style="color: inherit;"></span><span id="MathJax-Element-15-Frame" class="mjx-chtml MathJax_CHTML" tabindex="0" style="font-size: 119%; position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mn>21.19</mn><mi>m</mi><mi>i</mi><mi>n</mi></math>" role="presentation"><span id="MJXc-Node-207" class="mjx-math" aria-hidden="true"><span id="MJXc-Node-208" class="mjx-mrow"><span id="MJXc-Node-209" class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.37em; padding-bottom: 0.37em;">21.19</span></span><span id="MJXc-Node-210" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.213em; padding-bottom: 0.265em;">m</span></span><span id="MJXc-Node-211" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.423em; padding-bottom: 0.265em;">i</span></span><span id="MJXc-Node-212" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.213em; padding-bottom: 0.265em;">n</span></span></span></span><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>21.19</mn><mi>m</mi><mi>i</mi><mi>n</mi></math></span></span><script type="math/tex" id="MathJax-Element-15">21.19min</script></span><span>。</span></p><p><span>此外我们在数据处理部分对数据进行了两种类型的压缩，数据压缩率约为31.4%。所以理论传输速度是</span></p><p><span class="mathjax"><span class="MathJax_Preview" style="color: inherit;"></span><span class="mjx-chtml MJXc-display" style="text-align: center;"><span id="MathJax-Element-16-Frame" class="mjx-chtml MathJax_CHTML" tabindex="0" style="font-size: 119%; text-align: center; position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot; display=&quot;block&quot;><mn>21.19</mn><mi>m</mi><mi>i</mi><mi>n</mi><mo>&amp;#x00D7;</mo><mn>31.4</mn><mi mathvariant=&quot;normal&quot;>&amp;#x0025;</mi><mo>=</mo><mn>6.65</mn><mi>m</mi><mi>i</mi><mi>n</mi></math>" role="presentation"><span id="MJXc-Node-213" class="mjx-math" aria-hidden="true"><span id="MJXc-Node-214" class="mjx-mrow"><span id="MJXc-Node-215" class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.37em; padding-bottom: 0.37em;">21.19</span></span><span id="MJXc-Node-216" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.213em; padding-bottom: 0.265em;">m</span></span><span id="MJXc-Node-217" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.423em; padding-bottom: 0.265em;">i</span></span><span id="MJXc-Node-218" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.213em; padding-bottom: 0.265em;">n</span></span><span id="MJXc-Node-219" class="mjx-mo MJXc-space2"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.213em; padding-bottom: 0.318em;">×</span></span><span id="MJXc-Node-220" class="mjx-mn MJXc-space2"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.37em; padding-bottom: 0.37em;">31.4</span></span><span id="MJXc-Node-221" class="mjx-mi"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.475em; padding-bottom: 0.423em;">%</span></span><span id="MJXc-Node-222" class="mjx-mo MJXc-space3"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.055em; padding-bottom: 0.318em;">=</span></span><span id="MJXc-Node-223" class="mjx-mn MJXc-space3"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.37em; padding-bottom: 0.37em;">6.65</span></span><span id="MJXc-Node-224" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.213em; padding-bottom: 0.265em;">m</span></span><span id="MJXc-Node-225" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.423em; padding-bottom: 0.265em;">i</span></span><span id="MJXc-Node-226" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.213em; padding-bottom: 0.265em;">n</span></span></span></span><span class="MJX_Assistive_MathML MJX_Assistive_MathML_Block" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mn>21.19</mn><mi>m</mi><mi>i</mi><mi>n</mi><mo>×</mo><mn>31.4</mn><mi mathvariant="normal">%</mi><mo>=</mo><mn>6.65</mn><mi>m</mi><mi>i</mi><mi>n</mi></math></span></span></span><script type="math/tex; mode=display" id="MathJax-Element-16">21.19min \times 31.4\%=6.65min</script></span></p><p><span>我们实际测试中我们测得的传输时间为8分钟以内。</span></p><p><span>我们的数据压缩、数据传输和数据解压串行和并行结合，在程序中大量采用了"pending when a file is not ready"的机制，提前启动各部分程序，等待其他部分做完处理，把数据压缩、文件传输、撮合整个pipeline在测试环境下的时间控制在了15分钟以内。</span></p><h2 id="文件传输（File-Transfer-Duplex）" data-id="文件传输（File-Transfer-Duplex）"><a class="anchor hidden-xs" href="#文件传输（File-Transfer-Duplex）" title="文件传输（File-Transfer-Duplex）"><span class="octicon octicon-link"></span></a><span>文件传输（File Transfer Duplex）</span></h2><p><span>我们把数据分成了500份，以保证传输过程中能够重传。当传输完一个文件a，我们会额外在磁盘内写入一个</span><code>a.success</code><span>文件，以标记a传输完成。</span></p><p><span>我们把两个exchange当成数据的forwarder，两个trader通过两台exchanger来中转数据，最终数据在两个trader中分别撮合。</span></p><pre><code>                   orders1 =&gt;         orders1 =&gt;
+[0, 250):   trader 1 &lt;&gt;&lt;&gt;&lt;&gt; exchange 1 &lt;&gt;&lt;&gt;&lt;&gt; trader 2
+                    &lt;= orders2       &lt;= orders2
+                    orders1 =&gt;         orders1 =&gt;
+[250, 500): trader 1 &lt;&gt;&lt;&gt;&lt;&gt; exchange 2 &lt;&gt;&lt;&gt;&lt;&gt; trader 2
+                    &lt;= orders2       &lt;= orders2
+</code></pre><p><span>以上是我们的程序架构,"&lt;&gt;“代表一条</span><code>1.5MB/s</code><span>的channel，”&lt;&gt;&lt;&gt;&lt;&gt;"代表3条这样的channel并联，达到</span><code>4.5MB/s</code><span>的带宽。为了充分利用每一条</span><code>4.5MB/s</code><span>的带宽，我们设计了一个</span><strong><span>双向的全双工</span></strong><span>发送文件的程序，把它命名为</span><code>File Transfer Duplex</code><span>。（后面简称FTD）</span><br>
+<span>上图中Trade1到Exchange1，Exchange1到Trade2传输几乎是并行的，总时间几乎是串行时间的一半。</span></p><p><span>为了解决TCP的粘包问题，我们采用了等长的包，它的长度为</span><span class="mathjax raw"><span class="MathJax_Preview" style="color: inherit;"><span class="MJXp-math" id="MJXp-Span-201"><span class="MJXp-mi MJXp-italic" id="MJXp-Span-202">N</span></span></span><script type="math/tex" id="MathJax-Element-17">N</script></span><span>（目前是</span><span class="mathjax raw"><span class="MathJax_Preview" style="color: inherit;"><span class="MJXp-math" id="MJXp-Span-203"><span class="MJXp-mn" id="MJXp-Span-204">1400</span><span class="MJXp-mi MJXp-italic" id="MJXp-Span-205">B</span><span class="MJXp-mi MJXp-italic" id="MJXp-Span-206">y</span><span class="MJXp-mi MJXp-italic" id="MJXp-Span-207">t</span><span class="MJXp-mi MJXp-italic" id="MJXp-Span-208">e</span><span class="MJXp-mi MJXp-italic" id="MJXp-Span-209">s</span></span></span><script type="math/tex" id="MathJax-Element-18">1400 Bytes</script></span><span>）。</span></p><p><span>为了方便部署，我们在每台trader上部署6个server进程，每台exchange上部署6个client进程。虽然有server和client的区分，它们的区别仅在于建立连接时，建立连接后它们是平等的地位，我们采用同一个request handler去发送、接收和处理网络包。所有的trader和exchange既是发送者又是接收者，因此下面我们用发送者和接收者，或者worker来指代它们。</span></p><p><span>我们生成的500份文件是有固定文件名的，FTD会在运行的时候产生需要从另一端获取的文件名队列，后面如果发现需要请求文件的对应.success文件存在，我们就不会再去发送请求获取，这保证了出现失误后重新启动程序重传的正确性。</span></p><p><span>在建立连接后，一个worker会先用socket的</span><code>send()</code><span>发送请求，然后再用</span><code>recv()</code><span>来获取请求，它们得到的数据量每次都是</span><span class="mathjax raw"><span class="MathJax_Preview" style="color: inherit;"><span class="MJXp-math" id="MJXp-Span-210"><span class="MJXp-mi MJXp-italic" id="MJXp-Span-211">N</span></span></span><script type="math/tex" id="MathJax-Element-19">N</script></span><span>，以确保每个</span><span class="mathjax raw"><span class="MathJax_Preview" style="color: inherit;"><span class="MJXp-math" id="MJXp-Span-212"><span class="MJXp-mi MJXp-italic" id="MJXp-Span-213">N</span></span></span><script type="math/tex" id="MathJax-Element-20">N</script></span><span>长度的包内容都能被我们控制。包头有三类，一类是请求文件的，一类是传输数据的，还有一类是没有任何意义的空包（但它的长度还是</span><span class="mathjax raw"><span class="MathJax_Preview" style="color: inherit;"><span class="MJXp-math" id="MJXp-Span-214"><span class="MJXp-mi MJXp-italic" id="MJXp-Span-215">N</span></span></span><script type="math/tex" id="MathJax-Element-21">N</script></span><span>，不足的会用内存里的随机数据填满）。请求文件的包头会比其他包头有更高优先级，为了节约空间，请求的文件名后面可以跟其他数据包内容，如果跟其他包头共存此类包头会在包的最前面。所有包头及格式罗列如下：</span></p><ol>
+<li><span>request packets: </span><code>R:requested_file_name:other packet</code><span>, other packets could either be data packets or nil packets. if </span><code>R::other packet</code><span>, this means no file is being requested. If no data, the other packet should be a nil packet(</span><code>N:</code><span>).</span></li>
+<li><span>data packets: </span><code>B:file_size:payload(begin)</code><span> or </span><code>M:payload(middle)</code><span>. 有两类，前一类是起始数据包，会包含当前传输文件大小，后一类是中间数据包，包头后面直接是数据，一个文件的最后一个中间数据包后面不足的会用内存随机数据填充。</span></li>
+<li><span>nil packets: </span><code>N:</code><span>, used when there is no data to transfer, only instruction is transferred.</span></li>
+<li><span>end packets: </span><code>E:</code><span>, this packet is sent to end a connection when the transfer is finished.</span></li>
+<li><span>pending packets: </span><code>P:</code><span> the packet is sent when the file is not ready, almost equivalent to nil packet.</span></li>
+</ol><p><span>接收者在起始数据包内获取到当前传输文件大小之后有义务去记录一共获取了多少数据以及一个文件到哪个包终止，所有无意义的填充数据都应该被丢弃。</span></p><p><span>接收者也都是请求者（发送者），反之亦然。被请求的文件总是在请求者请求队列的最前面，处理完了之后才会从队列里面拿出，然后再请求下一个文件。</span></p><p><span>发送者有义务保证发送的每一个包都是定长的</span><span class="mathjax raw"><span class="MathJax_Preview" style="color: inherit;"><span class="MJXp-math" id="MJXp-Span-216"><span class="MJXp-mi MJXp-italic" id="MJXp-Span-217">N</span></span></span><script type="math/tex" id="MathJax-Element-22">N</script></span><span>，如果数据不足，需要用随机数据填满。</span></p><p><span>为了保证发送者和接收者处理的数据都是长度</span><span class="mathjax raw"><span class="MathJax_Preview" style="color: inherit;"><span class="MJXp-math" id="MJXp-Span-218"><span class="MJXp-mi MJXp-italic" id="MJXp-Span-219">N</span></span></span><script type="math/tex" id="MathJax-Element-23">N</script></span><span>的，在获取到 </span><code>recv()</code><span>和</span><code>send()</code><span>后，会判断它的长度是不是</span><span class="mathjax raw"><span class="MathJax_Preview" style="color: inherit;"><span class="MJXp-math" id="MJXp-Span-220"><span class="MJXp-mi MJXp-italic" id="MJXp-Span-221">N</span></span></span><script type="math/tex" id="MathJax-Element-24">N</script></span><span>，如果不是，会不断尝试直到获取到的数据填满长度是N的缓存数组。</span></p><p><span>为了将传输任务几乎均匀地分散到6条链路上，FTD提供了workerId、nWorkers以及fileId三个参数，fileId是</span><code>[0,500)</code><span>内的一个小范围，一般来说是Exchange 1中转</span><code>[0,250)</code><span>的数据，Exchange 2中转</span><code>[250,500)</code><span>范围内的数据。分成两份之后还会根据任务数对</span><span class="mathjax raw"><span class="MathJax_Preview" style="color: inherit;"><span class="MJXp-math" id="MJXp-Span-222"><span class="MJXp-mi MJXp-italic" id="MJXp-Span-223">n</span><span class="MJXp-mi MJXp-italic" id="MJXp-Span-224">W</span><span class="MJXp-mi MJXp-italic" id="MJXp-Span-225">o</span><span class="MJXp-mi MJXp-italic" id="MJXp-Span-226">r</span><span class="MJXp-mi MJXp-italic" id="MJXp-Span-227">k</span><span class="MJXp-mi MJXp-italic" id="MJXp-Span-228">e</span><span class="MJXp-mi MJXp-italic" id="MJXp-Span-229">r</span><span class="MJXp-mi MJXp-italic" id="MJXp-Span-230">s</span></span></span><script type="math/tex" id="MathJax-Element-25">nWorkers</script></span><span>求余来获取单个任务被哪个workerId的worker来向远端请求获取。</span></p><p><span>在所有的传输完成后，cient和server都会相互传结束连接的数据包来保证连接正确关闭。</span></p><p><span>通过压缩和充分利用网络的上下行带宽，我们在测试环境中传输文件使得两个Trader上都有全量数据所需的时间是8分钟以内。</span></p><blockquote>
+<p><span>附：英文版设计文档原稿可见附件file-transfer.zip中的readme文件</span></p>
+</blockquote><h2 id="数据处理（data-process）" data-id="数据处理（data-process）"><a class="anchor hidden-xs" href="#数据处理（data-process）" title="数据处理（data-process）"><span class="octicon octicon-link"></span></a><span>数据处理（data process）</span></h2><p><span>数据处理是为了解决三个目的：</span></p><h3 id="1重组数据并保证数据的有序性" data-id="1重组数据并保证数据的有序性"><a class="anchor hidden-xs" href="#1重组数据并保证数据的有序性" title="1重组数据并保证数据的有序性"><span class="octicon octicon-link"></span></a><strong><span>1.重组数据并保证数据的有序性</span></strong></h3><p><span>已有的数据是分散，且无序的</span><br>
+<span>通过读入分散的H5，重组成Order类型，并按Order_id进行排序。</span></p><h3 id="2减少数据网络和IO传输的代价" data-id="2减少数据网络和IO传输的代价"><a class="anchor hidden-xs" href="#2减少数据网络和IO传输的代价" title="2减少数据网络和IO传输的代价"><span class="octicon octicon-link"></span></a><strong><span>2.减少数据网络和IO传输的代价</span></strong></h3><p><span>我们采用了两步压缩：</span></p><p><span>第一步针对已有输入数据是</span></p><pre><code class="cpp hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span></div><div class="code"><span class="token keyword">struct</span> <span class="token class-name">order</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> stk_code<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> order_id<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> direction<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> type<span class="token punctuation">;</span>
+    <span class="token keyword">double</span> price<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> volume<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</div></div></code></pre><p><span>其中</span><code>stk_code:[1, 10], direction:{-1,1}, type:[0 ,6)</code><br>
+<span>price两位小数</span><br>
+<span>将其编码转成</span></p><pre><code class="cpp hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span></div><div class="code"><span class="token keyword">struct</span> <span class="token class-name">Order</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> order_id<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> price<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> volume<span class="token punctuation">;</span>
+    <span class="token keyword">unsigned</span> <span class="token keyword">char</span> combined<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token function">__attribute__</span><span class="token punctuation">(</span><span class="token punctuation">(</span>packed<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</div></div></code></pre><p><span>其中 </span><code>combined = stk_code &lt;&lt; 4 | (direction == 1?1:0) &lt;&lt; 3 | type</code><span>，price乘100四舍五入为整数</span><br>
+<span>数据压缩率 = </span><code>(3int + 1unsigned char) / (4int + 1double)=13/24</code></p><p><span>因此在已有的网络传输的优化下，将传输时间提升为</span></p><p><span class="mathjax raw"><span class="MathJax_Preview" style="color: inherit;"><span class="MJXp-math MJXp-display" id="MJXp-Span-231"><span class="MJXp-mn" id="MJXp-Span-232">21.1</span><span class="MJXp-mi MJXp-italic" id="MJXp-Span-233">m</span><span class="MJXp-mi MJXp-italic" id="MJXp-Span-234">i</span><span class="MJXp-mi MJXp-italic" id="MJXp-Span-235">n</span><span class="MJXp-mo" id="MJXp-Span-236" style="margin-left: 0.267em; margin-right: 0.267em;">∗</span><span class="MJXp-mn" id="MJXp-Span-237">13</span><span class="MJXp-mrow" id="MJXp-Span-238"><span class="MJXp-mo" id="MJXp-Span-239" style="margin-left: 0.111em; margin-right: 0.111em;">/</span></span><span class="MJXp-mn" id="MJXp-Span-240">24</span><span class="MJXp-mo" id="MJXp-Span-241" style="margin-left: 0.333em; margin-right: 0.333em;">=</span><span class="MJXp-mn" id="MJXp-Span-242">11.47</span><span class="MJXp-mi MJXp-italic" id="MJXp-Span-243">m</span><span class="MJXp-mi MJXp-italic" id="MJXp-Span-244">i</span><span class="MJXp-mi MJXp-italic" id="MJXp-Span-245">n</span></span></span><script type="math/tex; mode=display" id="MathJax-Element-26">21.1 min * 13/24 = 11.47min</script></span></p><p><span>第二步采用</span><strong><span>ZSTD</span></strong><span>在C++代码层对数据进行压缩，采取快速压缩方式，数据压缩率在测试数据</span><strong><span>上达到58%</span></strong><span>。</span></p><p><span>进一步将传输时间提升为</span><span class="mathjax raw"><span class="MathJax_Preview" style="color: inherit;"><span class="MJXp-math MJXp-display" id="MJXp-Span-246"><span class="MJXp-mn" id="MJXp-Span-247">11.47</span><span class="MJXp-mi MJXp-italic" id="MJXp-Span-248">m</span><span class="MJXp-mi MJXp-italic" id="MJXp-Span-249">i</span><span class="MJXp-mi MJXp-italic" id="MJXp-Span-250">n</span><span class="MJXp-mo" id="MJXp-Span-251" style="margin-left: 0.267em; margin-right: 0.267em;">∗</span><span class="MJXp-mn" id="MJXp-Span-252">58</span><span class="MJXp-mi" id="MJXp-Span-253">%</span><span class="MJXp-mo" id="MJXp-Span-254" style="margin-left: 0.333em; margin-right: 0.333em;">=</span><span class="MJXp-mn" id="MJXp-Span-255">6.66</span><span class="MJXp-mi MJXp-italic" id="MJXp-Span-256">m</span><span class="MJXp-mi MJXp-italic" id="MJXp-Span-257">i</span><span class="MJXp-mi MJXp-italic" id="MJXp-Span-258">n</span></span></span><script type="math/tex; mode=display" id="MathJax-Element-27">11.47min*58\% = 6.66min</script></span></p><p><span>经过这两步之后，我们需要传输的数据是初始数据的</span><strong><span>31.4%</span></strong><span>。</span></p><h3 id="3传输过程中数据出错的恢复能力" data-id="3传输过程中数据出错的恢复能力"><a class="anchor hidden-xs" href="#3传输过程中数据出错的恢复能力" title="3传输过程中数据出错的恢复能力"><span class="octicon octicon-link"></span></a><strong><span>3.传输过程中数据出错的恢复能力</span></strong></h3><p><span>为了预防网络传输中出现不可知的错误，我们将数据划分成500份，其中每份股票50份,发生错误恢复代价为</span><span class="mathjax raw"><span class="MathJax_Preview" style="color: inherit;"><span class="MJXp-math" id="MJXp-Span-259"><span class="MJXp-mn" id="MJXp-Span-260">0.2</span><span class="MJXp-mi" id="MJXp-Span-261">%</span></span></span><script type="math/tex" id="MathJax-Element-28">0.2\%</script></span><span>.</span></p><h2 id="模拟撮合" data-id="模拟撮合"><a class="anchor hidden-xs" href="#模拟撮合" title="模拟撮合"><span class="octicon octicon-link"></span></a><span>模拟撮合</span></h2><p><span>考虑到最终两台trader服务器需要获得完全一致的全量答案，我们选择将模拟撮合的逻辑放于trader本地，两台trader分别对全量数据进行撮合。</span><br>
+<span>因此我们不需要花费传输Trade的代价。</span></p><h3 id="运行脚本：" data-id="运行脚本："><a class="anchor hidden-xs" href="#运行脚本：" title="运行脚本："><span class="octicon octicon-link"></span></a><span>运行脚本：</span></h3><pre><code class="cpp hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
+<span></span></div><div class="code">g<span class="token operator">++</span> merge_cuo<span class="token punctuation">.</span>cpp <span class="token operator">-</span>o merge_cuo <span class="token operator">-</span>O2
+<span class="token punctuation">.</span><span class="token operator">/</span>merge_cuo
+</div></div></code></pre><h3 id="初始化配置" data-id="初始化配置"><a class="anchor hidden-xs" href="#初始化配置" title="初始化配置"><span class="octicon octicon-link"></span></a><span>初始化配置</span></h3><ul>
+<li><span>处理hook矩阵，存于</span><code>map&lt;int, special_info&gt; special_hook[10];</code></li>
+<li><span>处理prev_price，严格按照深交所规则进行四舍五入</span></li>
+</ul><h3 id="开始撮合" data-id="开始撮合"><a class="anchor hidden-xs" href="#开始撮合" title="开始撮合"><span class="octicon octicon-link"></span></a><span>开始撮合</span></h3><ul>
+<li><span>每次将</span><code>chunksize=1e6</code><span>的order_info载入内存，对十只股票进行滚动处理</span></li>
+<li><span>将卖方与买方的挂单存于</span><code>map &lt; pair&lt;int, int&gt;, int &gt; bids[10], asks[10];</code></li>
+<li><span>对于不同的挂单类型，实现了不同的定价逻辑</span></li>
+</ul><pre><code class="cpp hljs"><div class="wrapper"><div class="gutter linenumber"><span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span></div><div class="code"><span class="token keyword">if</span> <span class="token punctuation">(</span>type <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// limit order</span>
+        <span class="token comment">// is invalid</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>price <span class="token operator">&gt;</span> prev_high<span class="token punctuation">[</span>stk_code<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>price <span class="token operator">&lt;</span> prev_low<span class="token punctuation">[</span>stk_code<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> price<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>type <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 对手方最优</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>dir <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">?</span> <span class="token function">get_best_ask</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token function">get_best_bid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>type <span class="token operator">==</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 本方最优</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>dir <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">?</span> <span class="token function">get_best_bid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token function">get_best_ask</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>type <span class="token operator">==</span> <span class="token number">3</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 最优五档, 对手方</span>
+        quota <span class="token operator">=</span> inf<span class="token punctuation">;</span>
+        isLeave <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>dir <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">?</span> <span class="token function">get_best_ask</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token function">get_best_bid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>type <span class="token operator">==</span> <span class="token number">4</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 吃光对手方所有价格</span>
+        quota <span class="token operator">=</span> inf<span class="token punctuation">;</span>
+        isLeave <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>dir <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">?</span> <span class="token function">get_best_ask</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token function">get_best_bid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>type <span class="token operator">==</span> <span class="token number">5</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 全额成交, 以对手方为成交价</span>
+        quota <span class="token operator">=</span> inf<span class="token punctuation">;</span>
+        isLeave <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token keyword">long</span> <span class="token keyword">long</span> cvl <span class="token operator">=</span> <span class="token punctuation">(</span>dir <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">?</span> <span class="token function">get_cvl</span><span class="token punctuation">(</span>asks<span class="token punctuation">[</span>stk_code<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token function">get_cvl</span><span class="token punctuation">(</span>bids<span class="token punctuation">[</span>stk_code<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>cvl <span class="token operator">&gt;=</span> volume<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token punctuation">(</span>dir <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">?</span> <span class="token function">get_best_ask</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token function">get_best_bid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token comment">//cout &lt;&lt; "LOG: can not eat all " &lt;&lt; stk_code &lt;&lt; " " &lt;&lt; order_id &lt;&lt; " " &lt;&lt; endl;</span>
+            <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+</div></div></code></pre><h3 id="写入答案文件" data-id="写入答案文件"><a class="anchor hidden-xs" href="#写入答案文件" title="写入答案文件"><span class="octicon octicon-link"></span></a><span>写入答案文件</span></h3><ul>
+<li><span>答案存于</span><code>vector&lt;trade&gt; ans[10];</code></li>
+<li><span>撮合结束以后，一次性</span><code>write_trade</code><span>（测试结果证明这一做法比边撮边写的耗时直接提升了</span><strong><span>数十倍</span></strong><span>）</span></li>
+</ul><h2 id="预期结果" data-id="预期结果"><a class="anchor hidden-xs" href="#预期结果" title="预期结果"><span class="octicon octicon-link"></span></a><span>预期结果</span></h2><p><span>在三份测试数据集中，通过</span><code>cmp</code><span>命令来比较二进制答案文件，答案达到了</span><span class="mathjax raw"><span class="MathJax_Preview" style="color: inherit;"><span class="MJXp-math" id="MJXp-Span-262"><span class="MJXp-mn" id="MJXp-Span-263">100</span><span class="MJXp-mi" id="MJXp-Span-264">%</span></span></span><script type="math/tex" id="MathJax-Element-29">100\%</script></span><span>正确。</span></p><h2 id="我们所做的优化" data-id="我们所做的优化"><a class="anchor hidden-xs" href="#我们所做的优化" title="我们所做的优化"><span class="octicon octicon-link"></span></a><span>我们所做的优化</span></h2><h3 id="异常恢复" data-id="异常恢复"><a class="anchor hidden-xs" href="#异常恢复" title="异常恢复"><span class="octicon octicon-link"></span></a><span>异常恢复</span></h3><p><span>由于Order数据划分成了</span><span class="mathjax raw"><span class="MathJax_Preview" style="color: inherit;"><span class="MJXp-math" id="MJXp-Span-265"><span class="MJXp-mn" id="MJXp-Span-266">500</span></span></span><script type="math/tex" id="MathJax-Element-30">500</script></span><span>份binary file，因此对于某一份文件发生错误，重启file-client重新</span><strong><span>恢复代价为</span><span class="mathjax raw"><span class="MathJax_Preview" style="color: inherit;"><span class="MJXp-math" id="MJXp-Span-267"><span class="MJXp-mn" id="MJXp-Span-268">0.2</span><span class="MJXp-mi" id="MJXp-Span-269">%</span></span></span><script type="math/tex" id="MathJax-Element-31">0.2\%</script></span></strong><span>。</span><br>
+<span>此外由于我们采用了ZSTD压缩数据，在接受完数据进行解压时，一旦发生错误，可以</span><strong><span>轻易定位错误</span></strong><span>的某一份文件。</span></p><h3 id="可扩展性" data-id="可扩展性"><a class="anchor hidden-xs" href="#可扩展性" title="可扩展性"><span class="octicon octicon-link"></span></a><span>可扩展性</span></h3><p><span>在运维过程中，我们将所有的部署写成了脚本形式，实现了高度自动化运行。</span><br>
+<span>在只有两台Trader的时候，我们的程序可以轻易扩展支持</span><strong><span>更多的Exchange</span></strong><span>。随着Exchange的数量增加，我们的</span><strong><span>传输速度成线性增加</span></strong><span>。</span></p><h3 id="传输" data-id="传输"><a class="anchor hidden-xs" href="#传输" title="传输"><span class="octicon octicon-link"></span></a><span>传输</span></h3><p><span>实现了</span><strong><span>全双工传输</span></strong><span>。为了解决其中的粘包问题，我们设置了定长消息，服务端每次读取既定长度的内容作为一条完整消息。可以将网线看做一块隔板，隔开了两段stream，但是相对位置不会变。如果让隔板间距固定，所有问题就都解决了。</span><br>
+<span>像上面提到的那样，我们的时间相当于把Trade1传输到Trade2的时间。</span><br>
+<span>另外，在测试环境下，观察到我们的全双工file-transfer可以打满</span><strong><span>9MB/s</span></strong><span>带宽！</span></p><h3 id="内存" data-id="内存"><a class="anchor hidden-xs" href="#内存" title="内存"><span class="octicon octicon-link"></span></a><span>内存</span></h3><p><span>撮合过程中，将price全程用int表示，只有在输出答案的时候转换为double类型，同时将</span><span class="mathjax raw"><span class="MathJax_Preview" style="color: inherit;"><span class="MJXp-math" id="MJXp-Span-270"><span class="MJXp-mn" id="MJXp-Span-271">0</span><span class="MJXp-mo" id="MJXp-Span-272" style="margin-left: 0.267em; margin-right: 0.267em;">−</span><span class="MJXp-mn" id="MJXp-Span-273">9</span></span></span><script type="math/tex" id="MathJax-Element-32">0-9</script></span><span>的stk_code用</span><code>unsigned char</code><span>表示，可将trade占用大小从从</span><span class="mathjax raw"><span class="MathJax_Preview" style="color: inherit;"><span class="MJXp-math" id="MJXp-Span-274"><span class="MJXp-mn" id="MJXp-Span-275">24</span></span></span><script type="math/tex" id="MathJax-Element-33">24</script></span><span>字节压缩到了</span><span class="mathjax raw"><span class="MathJax_Preview" style="color: inherit;"><span class="MJXp-math" id="MJXp-Span-276"><span class="MJXp-mn" id="MJXp-Span-277">17</span></span></span><script type="math/tex" id="MathJax-Element-34">17</script></span><span>字节。</span></p><h3 id="复盘" data-id="复盘"><a class="anchor hidden-xs" href="#复盘" title="复盘"><span class="octicon octicon-link"></span></a><span>复盘</span></h3><ol>
+<li><span>网络传输程序里connect没有写retry</span></li>
+<li><span>比赛的时候启动client太急，trigger了问题1</span></li>
+<li><span>更换端口的时候有文件破损，更换单个文件没有很好的演练</span></li>
+</ol></div>
+    <div class="ui-toc dropup unselectable hidden-print" style="display:none;">
+        <div class="pull-right dropdown">
+            <a id="tocLabel" class="ui-toc-label btn btn-default" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" title="Table of content">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ul id="ui-toc" class="ui-toc-dropdown dropdown-menu" aria-labelledby="tocLabel">
+                <div class="toc"><ul class="nav">
+<li class=""><a href="#Report" title="Report">Report</a><ul class="nav">
+<li class=""><a href="#Design" title="Design">Design</a><ul class="nav">
+<li class=""><a href="#运行依赖" title="运行依赖">运行依赖</a></li>
+<li><a href="#架构设计" title="架构设计">架构设计</a></li>
+</ul>
+</li>
+<li><a href="#文件传输（File-Transfer-Duplex）" title="文件传输（File Transfer Duplex）">文件传输（File Transfer Duplex）</a></li>
+<li><a href="#数据处理（data-process）" title="数据处理（data process）">数据处理（data process）</a><ul class="nav">
+<li><a href="#1重组数据并保证数据的有序性" title="1.重组数据并保证数据的有序性">1.重组数据并保证数据的有序性</a></li>
+<li><a href="#2减少数据网络和IO传输的代价" title="2.减少数据网络和IO传输的代价">2.减少数据网络和IO传输的代价</a></li>
+<li><a href="#3传输过程中数据出错的恢复能力" title="3.传输过程中数据出错的恢复能力">3.传输过程中数据出错的恢复能力</a></li>
+</ul>
+</li>
+<li><a href="#模拟撮合" title="模拟撮合">模拟撮合</a><ul class="nav">
+<li><a href="#运行脚本：" title="运行脚本：">运行脚本：</a></li>
+<li><a href="#初始化配置" title="初始化配置">初始化配置</a></li>
+<li><a href="#开始撮合" title="开始撮合">开始撮合</a></li>
+<li><a href="#写入答案文件" title="写入答案文件">写入答案文件</a></li>
+</ul>
+</li>
+<li><a href="#预期结果" title="预期结果">预期结果</a></li>
+<li><a href="#我们所做的优化" title="我们所做的优化">我们所做的优化</a><ul class="nav">
+<li><a href="#异常恢复" title="异常恢复">异常恢复</a></li>
+<li><a href="#可扩展性" title="可扩展性">可扩展性</a></li>
+<li><a href="#传输" title="传输">传输</a></li>
+<li><a href="#内存" title="内存">内存</a></li>
+<li><a href="#复盘" title="复盘">复盘</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div><div class="toc-menu"><a class="expand-toggle" href="#">全部展開</a><a class="back-to-top" href="#">回到頂部</a><a class="go-to-bottom" href="#">移至底部</a></div>
+            </ul>
+        </div>
+    </div>
+    <div id="ui-toc-affix" class="ui-affix-toc ui-toc-dropdown unselectable hidden-print" data-spy="affix" style="top:17px;display:none;" null null>
+        <div class="toc"><ul class="nav">
+<li class=""><a href="#Report" title="Report">Report</a><ul class="nav">
+<li class=""><a href="#Design" title="Design">Design</a><ul class="nav">
+<li class=""><a href="#运行依赖" title="运行依赖">运行依赖</a></li>
+<li><a href="#架构设计" title="架构设计">架构设计</a></li>
+</ul>
+</li>
+<li><a href="#文件传输（File-Transfer-Duplex）" title="文件传输（File Transfer Duplex）">文件传输（File Transfer Duplex）</a></li>
+<li><a href="#数据处理（data-process）" title="数据处理（data process）">数据处理（data process）</a><ul class="nav">
+<li><a href="#1重组数据并保证数据的有序性" title="1.重组数据并保证数据的有序性">1.重组数据并保证数据的有序性</a></li>
+<li><a href="#2减少数据网络和IO传输的代价" title="2.减少数据网络和IO传输的代价">2.减少数据网络和IO传输的代价</a></li>
+<li><a href="#3传输过程中数据出错的恢复能力" title="3.传输过程中数据出错的恢复能力">3.传输过程中数据出错的恢复能力</a></li>
+</ul>
+</li>
+<li><a href="#模拟撮合" title="模拟撮合">模拟撮合</a><ul class="nav">
+<li><a href="#运行脚本：" title="运行脚本：">运行脚本：</a></li>
+<li><a href="#初始化配置" title="初始化配置">初始化配置</a></li>
+<li><a href="#开始撮合" title="开始撮合">开始撮合</a></li>
+<li><a href="#写入答案文件" title="写入答案文件">写入答案文件</a></li>
+</ul>
+</li>
+<li><a href="#预期结果" title="预期结果">预期结果</a></li>
+<li><a href="#我们所做的优化" title="我们所做的优化">我们所做的优化</a><ul class="nav">
+<li><a href="#异常恢复" title="异常恢复">异常恢复</a></li>
+<li><a href="#可扩展性" title="可扩展性">可扩展性</a></li>
+<li><a href="#传输" title="传输">传输</a></li>
+<li><a href="#内存" title="内存">内存</a></li>
+<li><a href="#复盘" title="复盘">复盘</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div><div class="toc-menu"><a class="expand-toggle" href="#">全部展開</a><a class="back-to-top" href="#">回到頂部</a><a class="go-to-bottom" href="#">移至底部</a></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gist-embed/2.6.0/gist-embed.min.js" integrity="sha256-KyF2D6xPIJUW5sUDSs93vWyZm+1RzIpKCexxElmxl8g=" crossorigin="anonymous" defer></script>
+    <script>
+        var markdown = $(".markdown-body");
+        //smooth all hash trigger scrolling
+        function smoothHashScroll() {
+            var hashElements = $("a[href^='#']").toArray();
+            for (var i = 0; i < hashElements.length; i++) {
+                var element = hashElements[i];
+                var $element = $(element);
+                var hash = element.hash;
+                if (hash) {
+                    $element.on('click', function (e) {
+                        // store hash
+                        var hash = this.hash;
+                        if ($(hash).length <= 0) return;
+                        // prevent default anchor click behavior
+                        e.preventDefault();
+                        // animate
+                        $('body, html').stop(true, true).animate({
+                            scrollTop: $(hash).offset().top
+                        }, 100, "linear", function () {
+                            // when done, add hash to url
+                            // (default click behaviour)
+                            window.location.hash = hash;
+                        });
+                    });
+                }
+            }
+        }
+
+        smoothHashScroll();
+        var toc = $('.ui-toc');
+        var tocAffix = $('.ui-affix-toc');
+        var tocDropdown = $('.ui-toc-dropdown');
+        //toc
+        tocDropdown.click(function (e) {
+            e.stopPropagation();
+        });
+
+        var enoughForAffixToc = true;
+
+        function generateScrollspy() {
+            $(document.body).scrollspy({
+                target: ''
+            });
+            $(document.body).scrollspy('refresh');
+            if (enoughForAffixToc) {
+                toc.hide();
+                tocAffix.show();
+            } else {
+                tocAffix.hide();
+                toc.show();
+            }
+            $(document.body).scroll();
+        }
+
+        function windowResize() {
+            //toc right
+            var paddingRight = parseFloat(markdown.css('padding-right'));
+            var right = ($(window).width() - (markdown.offset().left + markdown.outerWidth() - paddingRight));
+            toc.css('right', right + 'px');
+            //affix toc left
+            var newbool;
+            var rightMargin = (markdown.parent().outerWidth() - markdown.outerWidth()) / 2;
+            //for ipad or wider device
+            if (rightMargin >= 133) {
+                newbool = true;
+                var affixLeftMargin = (tocAffix.outerWidth() - tocAffix.width()) / 2;
+                var left = markdown.offset().left + markdown.outerWidth() - affixLeftMargin;
+                tocAffix.css('left', left + 'px');
+            } else {
+                newbool = false;
+            }
+            if (newbool != enoughForAffixToc) {
+                enoughForAffixToc = newbool;
+                generateScrollspy();
+            }
+        }
+        $(window).resize(function () {
+            windowResize();
+        });
+        $(document).ready(function () {
+            windowResize();
+            generateScrollspy();
+        });
+
+        //remove hash
+        function removeHash() {
+            window.location.hash = '';
+        }
+
+        var backtotop = $('.back-to-top');
+        var gotobottom = $('.go-to-bottom');
+
+        backtotop.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (scrollToTop)
+                scrollToTop();
+            removeHash();
+        });
+        gotobottom.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (scrollToBottom)
+                scrollToBottom();
+            removeHash();
+        });
+
+        var toggle = $('.expand-toggle');
+        var tocExpand = false;
+
+        checkExpandToggle();
+        toggle.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            tocExpand = !tocExpand;
+            checkExpandToggle();
+        })
+
+        function checkExpandToggle () {
+            var toc = $('.ui-toc-dropdown .toc');
+            var toggle = $('.expand-toggle');
+            if (!tocExpand) {
+                toc.removeClass('expand');
+                toggle.text('Expand all');
+            } else {
+                toc.addClass('expand');
+                toggle.text('Collapse all');
+            }
+        }
+
+        function scrollToTop() {
+            $('body, html').stop(true, true).animate({
+                scrollTop: 0
+            }, 100, "linear");
+        }
+
+        function scrollToBottom() {
+            $('body, html').stop(true, true).animate({
+                scrollTop: $(document.body)[0].scrollHeight
+            }, 100, "linear");
+        }
+    </script>
+</body>
+
+</html>
