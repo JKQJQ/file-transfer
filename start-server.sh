@@ -2,14 +2,18 @@
 
 ######## VARIABLES ######################
 
-UPLOAD_DIR=/data/team-10/test_duplex/test1_compress
-DOWNLOAD_DIR=/data/team-10/test_duplex/test2_compress
-LISTEN_PORT_1=12340
-LISTEN_PORT_2=12341
-LISTEN_PORT_3=12342
-LISTEN_PORT_4=12343
-LISTEN_PORT_5=12344
-LISTEN_PORT_6=12345
+UPLOAD_DIR=/data/team-10/large/test1/
+DOWNLOAD_DIR=/data/team-10/large/test2/
+
+# Trade1@Trade1->Exchange1
+LISTEN_PORT_1=60230
+LISTEN_PORT_2=60231
+LISTEN_PORT_3=60232
+
+# Trade1@Trade1->Exchange2
+LISTEN_PORT_4=59000
+LISTEN_PORT_5=59010
+LISTEN_PORT_6=59020
 
 ####### END ############################
 
